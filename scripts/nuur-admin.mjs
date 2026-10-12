@@ -5,6 +5,7 @@
 //    npm run seed:demo                 crée une cliente de démo + un vrai historique de commandes
 //    npm run clean:demo                supprime la cliente de démo et ses commandes
 //    npm run make-admin -- email@x.com donne l'accès « Espace gérante » à un compte existant
+//    npm run make-admin -- email@x.com --create   crée le compte s'il n'existe pas encore
 //    npm run make-admin -- email@x.com --remove   retire cet accès
 //
 //  Nécessite un fichier .env (jamais envoyé sur GitHub) contenant :
@@ -147,22 +148,32 @@ async function cleanDemo() {
     console.log(`✅ Compte ${DEMO_EMAIL} et ses commandes supprimés.`);
 }
 
-async function makeAdmin(email, remove) {
+async function makeAdmin(email, remove, create) {
     if (!email) fail('Indiquez l’email du compte : npm run make-admin -- email@exemple.com');
-    const user = await findUserByEmail(email);
-    if (!user) fail(`Aucun compte avec l’email ${email}. Créez-le d’abord depuis la page « Mon Compte » du site.`);
+    let user = await findUserByEmail(email);
+    let password = null;
+    if (!user && create && !remove) {
+        password = process.env.ADMIN_PASSWORD || 'Nuur-' + randomBytes(5).toString('hex');
+        const { data, error } = await sb.auth.admin.createUser({
+            email, password, email_confirm: true, user_metadata: { full_name: process.env.ADMIN_NAME || 'Nuur Cosmetik' },
+        });
+        if (error) fail('Création du compte impossible :', error);
+        user = data.user;
+    }
+    if (!user) fail(`Aucun compte avec l’email ${email}. Créez-le depuis la page « Mon Compte » du site, ou ajoutez --create.`);
     const { error } = await sb.from('profiles').update({ is_admin: !remove }).eq('id', user.id);
     if (error) fail('Mise à jour impossible :', error);
     console.log(remove
         ? `✅ ${email} n’a plus accès à l’Espace gérante.`
         : `✅ ${email} a maintenant accès à l’Espace gérante (menu Mon Compte > Espace gérante).`);
+    if (password) console.log(`   Compte créé — mot de passe : ${password}`);
 }
 
 const [command, ...args] = process.argv.slice(2);
 const commands = {
     'seed-demo': seedDemo,
     'clean-demo': cleanDemo,
-    'make-admin': () => makeAdmin(args.find(a => !a.startsWith('--')), args.includes('--remove')),
+    'make-admin': () => makeAdmin(args.find(a => !a.startsWith('--')), args.includes('--remove'), args.includes('--create')),
 };
 if (!commands[command]) {
     console.log('Commandes : seed-demo | clean-demo | make-admin <email> [--remove]');
