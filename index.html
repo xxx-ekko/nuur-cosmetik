@@ -35,7 +35,7 @@
     </div>
 
     <!-- Main Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <header id="site-header" class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm transition-shadow duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
 
             <!-- Logo -->
@@ -103,11 +103,11 @@
             <!-- Hero Banner -->
             <div class="relative bg-nuur-deep text-white min-h-[520px] sm:min-h-[580px] lg:min-h-[640px] flex items-center overflow-hidden">
                 <img src="assets/img/gallery/nuur-04.jpg" alt="" fetchpriority="high"
-                     class="absolute inset-0 w-full h-full object-cover object-center opacity-70">
+                     class="absolute inset-0 w-full h-full object-cover object-center opacity-70 hero-zoom">
                 <div class="absolute inset-0 hero-gradient"></div>
 
                 <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-24">
-                    <div class="max-w-2xl space-y-6">
+                    <div class="max-w-2xl space-y-6" data-reveal-stagger>
                         <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wide border border-white/20 text-nuur-200">
                             <span class="w-2 h-2 rounded-full bg-nuur-500 animate-ping"></span>
                             Soins 100% Naturels — Made in Sénégal 🇸🇳
@@ -136,7 +136,7 @@
             <!-- Engagement Pillars -->
             <div class="bg-nuur-50 border-b border-nuur-100 py-8 sm:py-10">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center" data-reveal-stagger>
                         <div class="pillar">
                             <div class="pillar-icon"><i class="fa-solid fa-leaf"></i></div>
                             <h3 class="font-bold text-gray-900 text-sm sm:text-base">100% Naturel</h3>
@@ -169,7 +169,7 @@
                     <div class="w-16 h-1 bg-nuur-700 mx-auto mt-4 rounded-full"></div>
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-5 sm:gap-8">
+                <div class="grid md:grid-cols-2 gap-5 sm:gap-8" data-reveal-stagger>
                     <a href="#boutique" data-category="capillaires" class="category-card group">
                         <img src="assets/img/gallery/nuur-02.jpg" alt="Boucles naturelles hydratées" loading="lazy"
                              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700">
@@ -203,7 +203,7 @@
             <!-- Products -->
             <div class="bg-gray-50 py-14 sm:py-20 border-t border-b border-gray-100">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-12">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-12" data-reveal>
                         <div>
                             <span class="eyebrow">La Gamme Nuur</span>
                             <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Nos Produits</h2>
@@ -213,14 +213,14 @@
                         </a>
                     </div>
 
-                    <div id="home-products" class="product-grid"></div>
+                    <div id="home-products" class="product-grid" data-reveal-stagger></div>
                 </div>
             </div>
 
             <!-- Heritage Section -->
             <div class="py-14 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid md:grid-cols-12 gap-10 md:gap-12 items-center">
-                    <div class="md:col-span-6 relative">
+                    <div class="md:col-span-6 relative" data-reveal="left">
                         <div class="relative rounded-3xl overflow-hidden shadow-2xl bg-nuur-deep">
                             <img src="assets/img/brand/gamme.jpg" alt="La gamme complète Nuur Cosmetik" loading="lazy"
                                  class="w-full h-72 sm:h-[450px] object-cover object-center">
@@ -234,7 +234,7 @@
                         </div>
                     </div>
 
-                    <div class="md:col-span-6 space-y-6">
+                    <div class="md:col-span-6 space-y-6" data-reveal="right">
                         <span class="eyebrow">L’Essence de Nuur</span>
                         <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
                             Des soins naturels inspirés par la richesse botanique du Sénégal
@@ -259,14 +259,14 @@
             <!-- Testimonials Section -->
             <div class="bg-nuur-50/70 py-16 sm:py-24 border-t border-nuur-100">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-2xl mx-auto mb-14">
+                    <div class="text-center max-w-2xl mx-auto mb-14" data-reveal>
                         <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Avis Clients & #NuurCare</span>
                         <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Ce que notre communauté dit de nous</h2>
                         <p class="text-gray-600 text-sm mt-3">Découvrez les retours d'expérience authentiques sur nos soins capillaires et corporels.</p>
                     </div>
 
                     <!-- 5 Reviews Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-reveal-stagger>
                         <!-- Review 1: Aïssatou -->
                         <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-shadow">
                             <div>
@@ -386,7 +386,7 @@
                         <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Inspirations & routines</h2>
                         <p class="text-gray-600 text-sm mt-3">Des cheveux crépus aux barbes soignées : la beauté naturelle que nous célébrons.</p>
                     </div>
-                    <div id="home-gallery" class="grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3"></div>
+                    <div id="home-gallery" class="grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3" data-reveal-stagger></div>
                     <div class="text-center mt-8">
                         <a href="#galerie" class="inline-flex items-center gap-2 bg-nuur-700 hover:bg-nuur-800 text-white font-semibold px-7 py-3.5 rounded-full transition-colors text-sm">
                             Voir toute la galerie <i class="fa-solid fa-arrow-right text-xs"></i>
@@ -397,7 +397,7 @@
 
             <!-- TikTok Banner -->
             <div class="bg-gray-900 text-white py-12 sm:py-14">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left" data-reveal="zoom">
                     <div class="flex flex-col sm:flex-row items-center gap-4">
                         <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-3xl text-nuur-200 shrink-0">
                             <i class="fa-brands fa-tiktok"></i>
@@ -427,14 +427,14 @@
                 </div>
 
                 <!-- Category Filters -->
-                <div class="flex items-center sm:justify-center gap-2 sm:gap-3 mb-6 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0" role="tablist" aria-label="Catégories">
+                <div class="flex items-center sm:justify-center gap-2 sm:gap-3 mb-6 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0" role="tablist" aria-label="Catégories" data-reveal>
                     <button type="button" data-filter="all" class="cat-btn" role="tab">Toute la gamme</button>
                     <button type="button" data-filter="capillaires" class="cat-btn" role="tab">Produits Capillaires</button>
                     <button type="button" data-filter="corporels" class="cat-btn" role="tab">Produits Corporels</button>
                 </div>
 
                 <!-- Search & Counter -->
-                <div class="flex flex-col-reverse sm:flex-row justify-between items-stretch sm:items-center mb-8 gap-3 bg-gray-50 p-3 sm:p-4 rounded-2xl border border-gray-100">
+                <div class="flex flex-col-reverse sm:flex-row justify-between items-stretch sm:items-center mb-8 gap-3 bg-gray-50 p-3 sm:p-4 rounded-2xl border border-gray-100" data-reveal>
                     <p class="text-sm font-medium text-gray-600 text-center sm:text-left">
                         <span id="product-count" class="font-bold text-nuur-800">0</span> produit(s)
                     </p>
@@ -446,12 +446,12 @@
                     </div>
                 </div>
 
-                <div id="shop-products" class="product-grid"></div>
+                <div id="shop-products" class="product-grid" data-reveal-stagger></div>
 
                 <!-- How to order -->
-                <div class="mt-14 bg-nuur-50 rounded-3xl p-6 sm:p-10 border border-nuur-100">
+                <div class="mt-14 bg-nuur-50 rounded-3xl p-6 sm:p-10 border border-nuur-100" data-reveal>
                     <h2 class="font-serif text-2xl font-bold text-gray-900 text-center mb-8">Comment commander ?</h2>
-                    <ol class="grid sm:grid-cols-3 gap-6 text-center">
+                    <ol class="grid sm:grid-cols-3 gap-6 text-center" data-reveal-stagger>
                         <li class="space-y-2">
                             <div class="step-num">1</div>
                             <h3 class="font-bold text-gray-900">Composez votre panier</h3>
@@ -482,7 +482,7 @@
                     <h1 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Galerie</h1>
                     <p class="text-gray-600 text-sm mt-2">Cheveux crépus, boucles, tresses et barbes : la beauté naturelle sous toutes ses formes.</p>
                 </div>
-                <div id="gallery-grid" class="columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4"></div>
+                <div id="gallery-grid" class="columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4" data-reveal-stagger></div>
             </div>
         </section>
 
@@ -492,7 +492,7 @@
         <section id="page-apropos" class="page-section hidden py-10 sm:py-12" data-title="À propos — Nuur Cosmetik">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-reveal>
                     <span class="eyebrow">Notre Philosophie</span>
                     <h1 class="font-serif text-3xl sm:text-5xl font-bold text-gray-900 mt-2 leading-tight">
                         La beauté naturelle, illuminée par le Sénégal
@@ -503,7 +503,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-center mb-16 sm:mb-20">
-                    <div class="space-y-6">
+                    <div class="space-y-6" data-reveal="left">
                         <h2 class="font-serif text-2xl sm:text-3xl font-bold text-gray-900">Une marque engagée Made in Sénégal 🇸🇳</h2>
                         <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
                             Née d’une passion profonde pour le soin des cheveux crépus et de la peau noire, <strong class="text-nuur-800">Nuur Cosmetik</strong> met à l’honneur des trésors botaniques locaux : la datte, le beurre de karité, l’huile de baobab, le clou de girofle ou encore le vétiver (« Ceep »).
@@ -522,19 +522,19 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div data-reveal="right">
                         <img src="assets/img/gallery/nuur-06.jpg" alt="Application d’huile naturelle sur le cuir chevelu" loading="lazy"
                              class="rounded-3xl shadow-xl w-full h-80 sm:h-[450px] object-cover object-top">
                     </div>
                 </div>
 
                 <!-- Ingredients -->
-                <div class="bg-nuur-50 rounded-3xl p-6 sm:p-12 border border-nuur-100">
+                <div class="bg-nuur-50 rounded-3xl p-6 sm:p-12 border border-nuur-100" data-reveal>
                     <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
                         <h2 class="font-serif text-2xl sm:text-3xl font-bold text-gray-900">Nos Ingrédients Phares</h2>
                         <p class="text-xs text-nuur-800 uppercase font-bold tracking-wider mt-1">Sélectionnés avec soin pour leur efficacité</p>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" data-reveal-stagger>
                         <div class="ingredient">
                             <div class="ingredient-icon">🌴</div>
                             <h3 class="font-bold text-gray-900">Datte</h3>
@@ -583,7 +583,7 @@
                 </div>
 
                 <div class="grid md:grid-cols-12 gap-6 md:gap-8 items-start">
-                    <div class="md:col-span-5 grid sm:grid-cols-2 md:grid-cols-1 gap-4 sm:gap-6">
+                    <div class="md:col-span-5 grid sm:grid-cols-2 md:grid-cols-1 gap-4 sm:gap-6" data-reveal-stagger>
                         <div class="bg-nuur-50 p-6 rounded-3xl border border-nuur-100">
                             <div class="w-12 h-12 rounded-full bg-nuur-700 text-white flex items-center justify-center text-xl mb-4">
                                 <i class="fa-brands fa-whatsapp"></i>
@@ -614,7 +614,7 @@
                         </div>
                     </div>
 
-                    <div class="md:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm">
+                    <div class="md:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm" data-reveal="right">
                         <h3 class="font-serif text-2xl font-bold text-gray-900 mb-2">Envoyez-nous un message</h3>
                         <p class="text-xs text-gray-500 mb-6">Remplissez ce formulaire : votre message s’ouvrira, pré-rempli, dans WhatsApp.</p>
 
@@ -672,7 +672,7 @@
 
                 <!-- Login / signup -->
                 <div id="account-auth" class="hidden max-w-md mx-auto">
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm">
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm" data-reveal="zoom">
                         <div id="auth-tabs" class="grid grid-cols-2 bg-gray-100 rounded-xl p-1 mb-6 text-sm font-semibold">
                             <button type="button" data-auth-view="login" class="auth-tab">Connexion</button>
                             <button type="button" data-auth-view="signup" class="auth-tab">Créer un compte</button>
@@ -738,7 +738,7 @@
                 <!-- Dashboard -->
                 <div id="account-dashboard" class="hidden">
                     <div class="grid md:grid-cols-12 gap-6 md:gap-8 items-start">
-                        <div class="md:col-span-4 bg-nuur-50/60 p-5 sm:p-6 rounded-3xl border border-nuur-100 text-center space-y-4">
+                        <div class="md:col-span-4 bg-nuur-50/60 p-5 sm:p-6 rounded-3xl border border-nuur-100 text-center space-y-4" data-reveal="left">
                             <div class="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-full bg-nuur-700 text-white flex items-center justify-center text-3xl font-serif font-bold shadow-md">
                                 <span id="account-initials"></span>
                                 <span class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 border-2 border-white rounded-full"></span>
@@ -774,20 +774,20 @@
                             </button>
                         </div>
 
-                        <div class="md:col-span-8 bg-white p-5 sm:p-8 rounded-3xl border border-gray-200 shadow-sm min-w-0">
+                        <div class="md:col-span-8 bg-white p-5 sm:p-8 rounded-3xl border border-gray-200 shadow-sm min-w-0" data-reveal="right">
                             <div id="account-tab-orders" class="account-tab-content space-y-5">
                                 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-gray-100 pb-4">
                                     <h3 class="font-serif font-bold text-xl text-gray-900">Historique des commandes</h3>
                                     <span id="orders-count-badge" class="text-xs bg-nuur-100 text-nuur-800 font-bold px-3 py-1 rounded-full"></span>
                                 </div>
-                                <div id="orders-list" class="space-y-4"></div>
+                                <div id="orders-list" class="space-y-4" data-reveal-stagger></div>
                             </div>
 
                             <div id="account-tab-favorites" class="account-tab-content hidden space-y-5">
                                 <div class="border-b border-gray-100 pb-4">
                                     <h3 class="font-serif font-bold text-xl text-gray-900">Mes soins favoris</h3>
                                 </div>
-                                <div id="favorites-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+                                <div id="favorites-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3" data-reveal-stagger></div>
                             </div>
 
                             <div id="account-tab-profile" class="account-tab-content hidden space-y-5">
@@ -849,7 +849,7 @@
                 </div>
 
                 <div id="admin-panel" class="hidden space-y-6">
-                    <div id="admin-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-3"></div>
+                    <div id="admin-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-3" data-reveal-stagger></div>
 
                     <div class="flex flex-col lg:flex-row gap-3 lg:items-center justify-between bg-gray-50 p-3 rounded-2xl border border-gray-100">
                         <div id="admin-filters" class="flex gap-2 overflow-x-auto no-scrollbar"></div>
@@ -861,7 +861,7 @@
                         </div>
                     </div>
 
-                    <div id="admin-orders" class="grid lg:grid-cols-2 gap-4"></div>
+                    <div id="admin-orders" class="grid lg:grid-cols-2 gap-4" data-reveal-stagger></div>
                 </div>
             </div>
         </section>
@@ -870,7 +870,7 @@
     <!-- FOOTER -->
     <footer class="bg-nuur-dark text-white pt-14 sm:pt-16 pb-24 sm:pb-8 border-t border-nuur-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10 pb-12 border-b border-nuur-800/80">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-10 pb-12 border-b border-nuur-800/80" data-reveal-stagger>
                 <div class="sm:col-span-2 md:col-span-5 space-y-4">
                     <div class="flex items-center gap-3">
                         <img src="assets/img/brand/logo-light.png" alt="Nuur" width="80" height="80" class="h-16 w-auto">
@@ -1026,7 +1026,7 @@
     <!-- SEARCH MODAL -->
     <div id="search-modal" class="modal hidden !items-start pt-16 sm:pt-24" role="dialog" aria-modal="true" aria-label="Rechercher">
         <div data-action="close-search" class="absolute inset-0"></div>
-        <div class="relative bg-white rounded-3xl max-w-xl w-full p-5 sm:p-6 shadow-2xl">
+        <div class="relative bg-white rounded-3xl max-w-xl w-full p-5 sm:p-6 shadow-2xl modal-pop">
             <div class="flex items-center justify-between pb-4 border-b border-gray-100">
                 <h3 class="font-bold text-gray-900">Rechercher un soin Nuur</h3>
                 <button type="button" data-action="close-search" class="w-9 h-9 -mr-2 text-gray-400 hover:text-gray-700" aria-label="Fermer"><i class="fa-solid fa-xmark text-lg"></i></button>

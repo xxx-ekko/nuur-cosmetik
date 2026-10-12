@@ -62,6 +62,89 @@
     }
 
     // ----------------------------------------------------------------------
+    // Animations
+    // ----------------------------------------------------------------------
+    const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Les éléments marqués data-reveal (ou enfants d'un data-reveal-stagger)
+    // apparaissent en douceur quand ils entrent à l'écran.
+    const revealObserver = motionOK && 'IntersectionObserver' in window
+        ? new IntersectionObserver(entries => entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-in');
+            revealObserver.unobserve(entry.target);
+        }), { rootMargin: '0px 0px -6% 0px', threshold: 0.08 })
+        : null;
+
+    function armOne(el, delay = 0) {
+        el.classList.remove('is-in');
+        el.classList.add('reveal');
+        el.style.setProperty('--d', `${delay}ms`);
+        revealObserver.observe(el);
+    }
+
+    function armChildren(container) {
+        if (!revealObserver || !container) return;
+        [...container.children].forEach((child, i) => armOne(child, Math.min(i, 6) * 90));
+    }
+
+    function armReveal(root) {
+        if (!revealObserver) return;
+        $$('[data-reveal], .section-heading', root).forEach(el => armOne(el));
+        $$('[data-reveal-stagger]', root).forEach(armChildren);
+    }
+
+    // Remplace le contenu d'une liste en conservant son animation si elle n'a pas encore été jouée
+    function setHTML(el, html) {
+        const pending = revealObserver && el.querySelector(':scope > .reveal:not(.is-in)');
+        el.innerHTML = html;
+        if (pending) armChildren(el);
+    }
+
+    function replayClass(el, cls) {
+        if (!motionOK || !el) return;
+        el.classList.remove(cls);
+        void el.offsetWidth;
+        el.classList.add(cls);
+    }
+
+    function countUp(el, to) {
+        if (!motionOK || !to) { el.textContent = formatNumber(to); return; }
+        const start = performance.now(), duration = 900;
+        const step = now => {
+            const t = Math.min((now - start) / duration, 1);
+            el.textContent = formatNumber(t < 1 ? Math.floor(to * (1 - Math.pow(1 - t, 3))) : to);
+            if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }
+
+    // La photo du produit « vole » jusqu'à l'icône du panier
+    function flyToCart(sourceImg) {
+        const cartBtn = $('button[data-action="open-cart"]');
+        if (!motionOK || !sourceImg || !cartBtn) return;
+        const a = sourceImg.getBoundingClientRect(), b = cartBtn.getBoundingClientRect();
+        if (!a.width || typeof sourceImg.animate !== 'function') return;
+        const dot = document.createElement('img');
+        dot.src = sourceImg.currentSrc || sourceImg.src;
+        dot.alt = '';
+        dot.className = 'fly-dot';
+        dot.style.left = `${a.left + a.width / 2 - 28}px`;
+        dot.style.top = `${a.top + a.height / 2 - 28}px`;
+        document.body.appendChild(dot);
+        const dx = b.left + b.width / 2 - (a.left + a.width / 2);
+        const dy = b.top + b.height / 2 - (a.top + a.height / 2);
+        dot.animate([
+            { transform: 'translate(0, 0) scale(.6)', opacity: 0 },
+            { transform: 'translate(0, -24px) scale(1.15)', opacity: 1, offset: 0.25 },
+            { transform: `translate(${dx}px, ${dy}px) scale(.25)`, opacity: 0.7 },
+        ], { duration: 850, easing: 'cubic-bezier(.55, 0, .3, 1)' }).onfinish = () => {
+            dot.remove();
+            replayClass($('i', cartBtn), 'cart-wiggle');
+        };
+    }
+
+    // ----------------------------------------------------------------------
     // State
     // ----------------------------------------------------------------------
     const state = {
@@ -365,12 +448,12 @@
     }
 
     function renderProducts() {
-        $('#home-products').innerHTML = PRODUCTS.map(productCard).join('');
+        setHTML($('#home-products'), PRODUCTS.map(productCard).join(''));
         const list = filteredProducts();
         $('#product-count').textContent = list.length;
-        $('#shop-products').innerHTML = list.length
+        setHTML($('#shop-products'), list.length
             ? list.map(productCard).join('')
-            : `<p class="col-span-full text-center text-sm text-gray-500 py-12">Aucun soin ne correspond à votre recherche.</p>`;
+            : `<p class="col-span-full text-center text-sm text-gray-500 py-12">Aucun soin ne correspond à votre recherche.</p>`);
         $$('.cat-btn').forEach(b => {
             const on = b.dataset.filter === state.category;
             b.classList.toggle('is-active', on);
@@ -484,6 +567,7 @@
         const img = $('#lightbox-img');
         img.src = g.src;
         img.alt = g.alt;
+        replayClass(img, 'lb-anim');
         $('#lightbox-counter').textContent = `${state.lightboxIndex + 1} / ${GALLERY.length}`;
     }
 
@@ -508,6 +592,7 @@
                 $('#cart-overlay').classList.add('is-open');
                 drawer.classList.remove('translate-x-full');
             });
+            armChildren($('#cart-items'));
             setTimeout(() => $('[data-action="close-cart"]', drawer)?.focus({ preventScroll: true }), 50);
         } else if (name === 'lightbox') {
             $('#lightbox').classList.replace('hidden', 'flex');
@@ -588,6 +673,9 @@
         window.scrollTo({ top: 0, behavior: 'instant' });
         if (page === 'compte') renderAccount();
         if (page === 'admin') loadAdmin();
+        const section = $('#page-' + page);
+        replayClass(section, 'page-enter');
+        armReveal(section);
     }
 
     // ----------------------------------------------------------------------
@@ -681,8 +769,13 @@
     }
 
     function renderAccount() {
-        const show = id => ['account-unavailable', 'account-loading', 'account-auth', 'account-dashboard']
-            .forEach(x => $('#' + x).classList.toggle('hidden', x !== id));
+        const show = id => {
+            const appearing = $('#' + id).classList.contains('hidden');
+            ['account-unavailable', 'account-loading', 'account-auth', 'account-dashboard']
+                .forEach(x => $('#' + x).classList.toggle('hidden', x !== id));
+            if (appearing) armReveal($('#' + id));
+            return appearing;
+        };
 
         if (!sb) return show('account-unavailable');
         if (!state.authReady) return show('account-loading');
@@ -696,7 +789,7 @@
             return;
         }
 
-        show('account-dashboard');
+        const dashboardAppearing = show('account-dashboard');
         const p = state.profile || {};
         const name = p.full_name || state.user.email.split('@')[0];
         const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
@@ -708,8 +801,14 @@
         $('#account-zone').innerHTML = p.zone || p.address
             ? `<i class="fa-solid fa-location-dot"></i> ${esc([p.address, p.zone].filter(Boolean).join(' — '))}`
             : '';
-        $('#stat-orders').textContent = state.orders.length;
-        $('#stat-spent').textContent = formatNumber(active.reduce((s, o) => s + o.total, 0));
+        const spent = active.reduce((s, o) => s + o.total, 0);
+        if (dashboardAppearing) {
+            countUp($('#stat-orders'), state.orders.length);
+            countUp($('#stat-spent'), spent);
+        } else {
+            $('#stat-orders').textContent = state.orders.length;
+            $('#stat-spent').textContent = formatNumber(spent);
+        }
         $('#orders-count-badge').textContent = plural(state.orders.length, 'commande');
 
         $$('.account-tab-btn').forEach(b => b.classList.toggle('is-active', b.dataset.accountTab === state.accountTab));
@@ -737,15 +836,15 @@
     function renderOrders() {
         const list = $('#orders-list');
         if (!state.orders.length) {
-            list.innerHTML = `
+            setHTML(list, `
                 <div class="text-center py-10 text-gray-400 space-y-3">
                     <i class="fa-solid fa-box-open text-4xl"></i>
                     <p class="text-sm">Vous n’avez pas encore passé de commande.</p>
                     <a href="#boutique" data-category="all" class="inline-block text-sm bg-nuur-700 text-white font-bold px-5 py-2.5 rounded-full">Découvrir nos soins</a>
-                </div>`;
+                </div>`);
             return;
         }
-        list.innerHTML = state.orders.map(o => {
+        setHTML(list, state.orders.map(o => {
             const count = o.items.reduce((s, i) => s + i.qty, 0);
             return `
                 <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -767,7 +866,7 @@
                         </div>
                     </div>
                 </div>`;
-        }).join('');
+        }).join(''));
     }
 
     function reorder(ref) {
@@ -787,7 +886,7 @@
     function renderFavorites() {
         const box = $('#favorites-list');
         const favs = PRODUCTS.filter(p => state.favorites.has(p.id));
-        box.innerHTML = favs.length
+        setHTML(box, favs.length
             ? favs.map(p => `
                 <div class="p-3 border border-gray-100 rounded-2xl flex items-center gap-3 bg-gray-50/50">
                     <button type="button" data-action="open-product" data-id="${p.id}" class="shrink-0">
@@ -800,7 +899,7 @@
                     </div>
                     ${favButton(p, 'w-9 h-9 shrink-0 text-red-500 hover:text-gray-400')}
                 </div>`).join('')
-            : `<p class="sm:col-span-2 text-center text-sm text-gray-400 py-8">Touchez le <i class="fa-regular fa-heart"></i> d’un produit pour l’ajouter à vos favoris.</p>`;
+            : `<p class="sm:col-span-2 text-center text-sm text-gray-400 py-8">Touchez le <i class="fa-regular fa-heart"></i> d’un produit pour l’ajouter à vos favoris.</p>`);
     }
 
     async function toggleFavorite(id) {
@@ -843,6 +942,9 @@
         if (error) return toast('Impossible de charger les commandes.');
         state.admin.orders = data || [];
         renderAdmin();
+        armChildren($('#admin-stats'));
+        armChildren($('#admin-orders'));
+        $$('#admin-stats [data-count]').forEach(el => countUp(el, Number(el.dataset.count)));
     }
 
     function renderAdmin() {
@@ -852,13 +954,13 @@
         const stat = (label, value, cls) => `
             <div class="bg-white border border-gray-200 rounded-2xl p-4">
                 <p class="text-xs text-gray-500 font-semibold">${label}</p>
-                <p class="font-serif font-bold text-2xl mt-1 ${cls}">${value}</p>
+                <p class="font-serif font-bold text-2xl mt-1 ${cls}" data-count="${value}">${formatNumber(value)}</p>
             </div>`;
         $('#admin-stats').innerHTML =
             stat('À confirmer', count('envoyee'), 'text-amber-700') +
             stat('Confirmées', count('confirmee'), 'text-sky-700') +
             stat('Livrées', count('livree'), 'text-green-700') +
-            stat('CA livré (FCFA)', formatNumber(revenue), 'text-nuur-800');
+            stat('CA livré (FCFA)', revenue, 'text-nuur-800');
 
         const filters = [['all', 'Toutes', orders.length], ...Object.entries(STATUS).map(([k, s]) => [k, s.label + 's', count(k)])];
         $('#admin-filters').innerHTML = filters.map(([k, label, n]) => `
@@ -927,14 +1029,18 @@
         'reopen-whatsapp': () => { if (state.lastOrder && !window.open(state.lastOrder.url, '_blank')) location.href = state.lastOrder.url; },
         'qty': el => changeQty(el.dataset.key, Number(el.dataset.delta)),
         'remove': el => removeLine(el.dataset.key),
-        'add': el => addToCart(el.dataset.id, state.selected[el.dataset.id] ?? 0),
+        'add': el => {
+            flyToCart(el.closest('.product-card')?.querySelector('img'));
+            addToCart(el.dataset.id, state.selected[el.dataset.id] ?? 0);
+        },
         'select-variant': el => { state.selected[el.dataset.id] = Number(el.dataset.index); renderProducts(); },
         'open-product': el => openProduct(el.dataset.id),
         'close-modal': () => closeOverlay('product-modal'),
-        'modal-image': el => { state.modal.img = el.dataset.img; renderModal(); },
+        'modal-image': el => { state.modal.img = el.dataset.img; renderModal(); replayClass($('#modal-product-content img'), 'fade-swap'); },
         'modal-qty': el => { state.modal.qty = Math.max(1, Math.min(99, state.modal.qty + Number(el.dataset.delta))); renderModal(); },
         'modal-add': () => {
             const { id, qty } = state.modal;
+            flyToCart($('#modal-product-content img'));
             addToCart(id, state.selected[id] ?? 0, qty);
             closeOverlay('product-modal');
         },
@@ -965,16 +1071,22 @@
         if (e.target.closest('[data-nav]')) closeMenu();
 
         const filterBtn = e.target.closest('[data-filter]');
-        if (filterBtn) { state.category = filterBtn.dataset.filter; renderProducts(); }
+        if (filterBtn) { state.category = filterBtn.dataset.filter; renderProducts(); armChildren($('#shop-products')); }
 
         const authView = e.target.closest('[data-auth-view]');
         if (authView) setAuthView(authView.dataset.authView);
 
         const accountTab = e.target.closest('[data-account-tab]');
-        if (accountTab) { state.accountTab = accountTab.dataset.accountTab; renderAccount(); }
+        if (accountTab) {
+            state.accountTab = accountTab.dataset.accountTab;
+            renderAccount();
+            const content = $('#account-tab-' + state.accountTab);
+            replayClass(content, 'fade-swap');
+            armChildren($('[data-reveal-stagger]', content));
+        }
 
         const adminFilter = e.target.closest('[data-admin-filter]');
-        if (adminFilter) { state.admin.filter = adminFilter.dataset.adminFilter; renderAdmin(); }
+        if (adminFilter) { state.admin.filter = adminFilter.dataset.adminFilter; renderAdmin(); armChildren($('#admin-orders')); }
 
         const el = e.target.closest('[data-action]');
         if (el && actions[el.dataset.action]) actions[el.dataset.action](el);
@@ -1127,6 +1239,12 @@
     renderCart();
     window.addEventListener('hashchange', route);
     route();
+    armReveal($('footer'));
+
+    const header = $('#site-header');
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
     if (sb) {
         // Le callback ne doit pas attendre d'autres appels Supabase directement (verrou interne)
