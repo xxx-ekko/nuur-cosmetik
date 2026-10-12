@@ -87,6 +87,6 @@ Optional full local backend (Docker + Supabase CLI): `supabase start` (this proj
 
 ## Before going live
 
-- The testimonials on the home page are the ones from the draft. They mention products that aren't in the catalog (Bain d'Huile Fortifiant, Sérum Barbe, Lait Corporel…). Replace them with real customer reviews.
+- The testimonials on the home page are sample texts: replace them with real customer reviews when you have them (they're plain HTML in `index.html`, section "Testimonials").
 - Run `npm run clean:demo` if you seeded the demo account.
 - Set the `og:image` meta tag in `index.html` to the full URL (e.g. `https://xxx-ekko.github.io/nuur-cosmetik/assets/img/brand/gamme.jpg`) so links shared on WhatsApp show the picture.
