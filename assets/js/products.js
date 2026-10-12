@@ -8,7 +8,7 @@ window.NUUR_CONFIG = {
     // Numéro qui reçoit les commandes : format international, sans "+" ni espaces
     whatsappNumber: '221762382500',
     whatsappDisplay: '+221 76 238 25 00',
-    tiktok: 'nuurcos',
+    tiktok: 'nuurcosn',
     currency: 'FCFA',
     deliveryZones: ['Dakar & banlieue', 'Régions du Sénégal'],
 
