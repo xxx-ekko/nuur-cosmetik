@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuur Cosmetik — Soins Capillaires & Corporels 100% Naturels | Made in Sénégal</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Montserrat (Body & UI), Playfair Display (Headings), Caveat (Handwritten Logo Font) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Configuration for Custom Nuur Green & Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nuur: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            dark: '#0f3822',
+                            deep: '#0a2617'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        handwritten: ['Caveat', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .handwritten-brand {
+            font-family: 'Caveat', cursive;
+            font-size: 2.3rem;
+            line-height: 1;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(15, 56, 34, 0.75) 0%, rgba(10, 38, 23, 0.88) 100%);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        .pulse-wa {
+            animation: subtle-pulse 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900 font-sans antialiased selection:bg-nuur-700 selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-nuur-dark text-white text-xs sm:text-sm py-2 px-4 text-center font-medium tracking-wide">
+        <span>🇸🇳 Produits Capillaires & Corporels 100% Naturels — <strong>Made in Sénégal</strong> | #NuurCare</span>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo Section -->
+            <a href="javascript:void(0)" onclick="showPage('home')" class="flex items-center gap-3 group">
+                <div class="relative w-12 h-12 flex items-center justify-center rounded-full bg-nuur-50 border border-nuur-200 group-hover:scale-105 transition-transform">
+                    <svg class="w-8 h-8 text-nuur-700" viewBox="0 0 100 100" fill="currentColor">
+                        <g transform="translate(50,50)">
+                            <path d="M0,-46 L0,-36 M0,46 L0,36 M-46,0 L-36,0 M46,0 L36,0 M-32,-32 L-25,-25 M32,32 L25,25 M-32,32 L-25,-25 M32,-32 L25,-25" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M0,-42 L0,-38 M0,42 L0,38 M-42,0 L-38,0 M42,0 L38,0 M-29,-29 L-26,-26 M29,29 L26,26 M-29,29 L-26,26 M29,-29 L26,-26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="0" cy="0" r="22" fill="none" stroke="currentColor" stroke-width="4"/>
+                            <circle cx="0" cy="0" r="14" fill="currentColor"/>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="flex flex-col">
+                    <span class="handwritten-brand text-gray-900 tracking-wider">Nuur</span>
+                    <span class="text-[9px] tracking-[0.25em] uppercase font-bold text-nuur-700 -mt-2">Cosmetik</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                <button onclick="showPage('home')" id="nav-home" class="nav-btn text-nuur-700 font-semibold border-b-2 border-nuur-700 pb-1 transition-colors">Accueil</button>
+                <button onclick="showPage('boutique')" id="nav-boutique" class="nav-btn text-gray-600 hover:text-nuur-700 transition-colors pb-1">Boutique</button>
+                <button onclick="showPage('apropos')" id="nav-apropos" class="nav-btn text-gray-600 hover:text-nuur-700 transition-colors pb-1">À Propos</button>
+                <button onclick="showPage('contact')" id="nav-contact" class="nav-btn text-gray-600 hover:text-nuur-700 transition-colors pb-1">Contact</button>
+                <button onclick="showPage('compte')" id="nav-compte" class="nav-btn text-gray-600 hover:text-nuur-700 transition-colors pb-1 flex items-center gap-1.5">
+                    <i class="fa-regular fa-user"></i> Mon Compte
+                </button>
+            </nav>
+
+            <!-- Action Buttons (Cart & Mobile Menu) -->
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleSearchModal()" class="p-2 text-gray-700 hover:text-nuur-700 transition-colors" title="Rechercher">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+
+                <button onclick="toggleCartDrawer()" class="relative p-2 text-gray-700 hover:text-nuur-700 transition-colors" title="Panier">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-nuur-700 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-800 hover:text-nuur-700 transition-colors focus:outline-none" aria-label="Menu Mobile">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-6 pt-4 pb-6 transition-all duration-300">
+            <div class="flex flex-col space-y-4 text-base font-medium">
+                <button onclick="showPage('home'); toggleMobileMenu()" class="text-left text-nuur-700 font-semibold py-1 border-b border-gray-100 flex items-center justify-between">
+                    <span>Accueil</span> <i class="fa-solid fa-angle-right text-xs"></i>
+                </button>
+                <button onclick="showPage('boutique'); toggleMobileMenu()" class="text-left text-gray-700 hover:text-nuur-700 py-1 border-b border-gray-100 flex items-center justify-between">
+                    <span>Boutique</span> <i class="fa-solid fa-angle-right text-xs"></i>
+                </button>
+                <button onclick="showPage('apropos'); toggleMobileMenu()" class="text-left text-gray-700 hover:text-nuur-700 py-1 border-b border-gray-100 flex items-center justify-between">
+                    <span>À Propos</span> <i class="fa-solid fa-angle-right text-xs"></i>
+                </button>
+                <button onclick="showPage('contact'); toggleMobileMenu()" class="text-left text-gray-700 hover:text-nuur-700 py-1 border-b border-gray-100 flex items-center justify-between">
+                    <span>Contact</span> <i class="fa-solid fa-angle-right text-xs"></i>
+                </button>
+                <button onclick="showPage('compte'); toggleMobileMenu()" class="text-left text-gray-700 hover:text-nuur-700 py-1 border-b border-gray-100 flex items-center justify-between">
+                    <span>Mon Compte</span> <i class="fa-regular fa-user text-xs"></i>
+                </button>
+                
+                <div class="pt-2 flex items-center space-x-4 text-sm text-gray-600">
+                    <a href="https://wa.me/221762382500" target="_blank" class="flex items-center gap-2 text-nuur-700 font-semibold">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> +221 76 238 25 00
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT PAGES CONTAINER -->
+    <main id="app-container">
+
+        <!-- ========================================== -->
+        <!-- PAGE 1: ACCUEIL (HOME PAGE)               -->
+        <!-- ========================================== -->
+        <section id="page-home" class="page-section">
+            
+            <!-- Hero Banner -->
+            <div class="relative bg-gray-900 text-white min-h-[580px] lg:min-h-[640px] flex items-center overflow-hidden">
+                <!-- Background Real Photo: Black African woman with magnificent natural afro hair -->
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1600&auto=format&fit=crop" 
+                     alt="Femme africaine aux cheveux crépus naturels - Soin Nuur" 
+                     class="absolute inset-0 w-full h-full object-cover object-top opacity-65 scale-105">
+                
+                <div class="absolute inset-0 hero-gradient"></div>
+
+                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 grid md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-8 lg:col-span-7 space-y-6">
+                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wide border border-white/20 text-nuur-200">
+                            <span class="w-2 h-2 rounded-full bg-nuur-500 animate-ping"></span>
+                            Soins 100% Naturels — Made in Sénégal 🇸🇳
+                        </div>
+
+                        <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-normal">
+                            Sublimez votre beauté au naturel avec <span class="text-nuur-200 font-handwritten italic text-4xl sm:text-6xl lg:text-7xl">Nuur</span>
+                        </h1>
+
+                        <p class="text-gray-200 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+                            Des soins capillaires et corporels conçus au Sénégal pour révéler la beauté unique des cheveux crépus, bouclés et des peaux mélanées.
+                        </p>
+
+                        <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                            <button onclick="showPage('boutique')" class="bg-nuur-700 hover:bg-nuur-800 text-white font-semibold px-8 py-4 rounded-full transition-all transform hover:-translate-y-0.5 shadow-lg text-center flex items-center justify-center gap-3">
+                                Découvrir la Gamme <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                            <a href="https://wa.me/221762382500?text=Bonjour%20Nuur%20Cosmetik,%20je%20souhaite%20commander" target="_blank" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md font-semibold px-6 py-4 rounded-full transition-all text-center flex items-center justify-center gap-3">
+                                <i class="fa-brands fa-whatsapp text-green-400 text-xl"></i> Commander sur WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Engagement Pillars -->
+            <div class="bg-nuur-50 border-b border-nuur-100 py-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                        <div class="p-4 bg-white rounded-2xl shadow-sm border border-nuur-100/60 flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xl mb-3">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm sm:text-base">100% Naturel</h3>
+                            <p class="text-xs text-gray-500 mt-1">Formules végétales pures</p>
+                        </div>
+
+                        <div class="p-4 bg-white rounded-2xl shadow-sm border border-nuur-100/60 flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xl mb-3">
+                                <i class="fa-solid fa-flag"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm sm:text-base">Made in Sénégal</h3>
+                            <p class="text-xs text-gray-500 mt-1">Fabriqué localement 🇸🇳</p>
+                        </div>
+
+                        <div class="p-4 bg-white rounded-2xl shadow-sm border border-nuur-100/60 flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xl mb-3">
+                                <i class="fa-solid fa-pump-soap"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm sm:text-base">Haute Qualité</h3>
+                            <p class="text-xs text-gray-500 mt-1">Sans produits toxiques</p>
+                        </div>
+
+                        <div class="p-4 bg-white rounded-2xl shadow-sm border border-nuur-100/60 flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xl mb-3">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-sm sm:text-base">Livraison Rapide</h3>
+                            <p class="text-xs text-gray-500 mt-1">Dakar & Partout au Sénégal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Showcase with African Models -->
+            <div class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Nos Univers</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Des soins adaptés à tous vos besoins</h2>
+                    <div class="w-16 h-1 bg-nuur-700 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Category 1: Produits Capillaires -->
+                    <div onclick="filterShopCategory('capillaires')" class="group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer h-96 transition-transform duration-300 hover:-translate-y-1">
+                        <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Produits Capillaires Cheveux Crépus Africains Nuur" 
+                             class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                            <span class="bg-nuur-700 text-white text-xs uppercase font-semibold px-3 py-1 rounded-full mb-3 inline-block">Cheveux Crépus & Frisés</span>
+                            <h3 class="font-serif text-3xl font-bold">Produits Capillaires</h3>
+                            <p class="text-gray-200 text-sm mt-2 max-w-md">Bains d'huile de pousse, beurres nourrissants & sérums pour fortifier vos cheveux crépus, bouclés ou locksés.</p>
+                            <span class="inline-flex items-center gap-2 mt-4 text-nuur-200 font-semibold group-hover:translate-x-2 transition-transform">
+                                Découvrir la gamme <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: Produits Corporels -->
+                    <div onclick="filterShopCategory('corporels')" class="group relative rounded-3xl overflow-hidden shadow-lg cursor-pointer h-96 transition-transform duration-300 hover:-translate-y-1">
+                        <img src="https://images.unsplash.com/photo-1584297091622-af8e5fda90d3?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Produits Corporels Peau Africaine Nuur" 
+                             class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
+                            <span class="bg-nuur-700 text-white text-xs uppercase font-semibold px-3 py-1 rounded-full mb-3 inline-block">Éclat & Hydratation</span>
+                            <h3 class="font-serif text-3xl font-bold">Produits Corporels</h3>
+                            <p class="text-gray-200 text-sm mt-2 max-w-md">Laits hydratants au karité et huiles satinées pour sublimer le glow naturel des peaux mélanées.</p>
+                            <span class="inline-flex items-center gap-2 mt-4 text-nuur-200 font-semibold group-hover:translate-x-2 transition-transform">
+                                Découvrir la gamme <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Seller Products Grid -->
+            <div class="bg-gray-50 py-16 sm:py-20 border-t border-b border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                        <div>
+                            <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Incontournables</span>
+                            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Nos Produits Vedettes</h2>
+                        </div>
+                        <button onclick="showPage('boutique')" class="mt-4 md:mt-0 text-nuur-700 font-semibold hover:text-nuur-800 flex items-center gap-2 transition-colors">
+                            Voir toute la gamme <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Products Grid Container -->
+                    <div id="home-featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Populated dynamic product cards via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Made in Senegal Heritage Section -->
+            <div class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-12 gap-12 items-center">
+                    <div class="md:col-span-6 relative">
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1000&auto=format&fit=crop" 
+                                 alt="Sourire et beauté africaine naturelle Nuur" 
+                                 class="w-full h-[450px] object-cover object-center">
+                        </div>
+                        <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-nuur-100 hidden sm:flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-nuur-700 text-white flex items-center justify-center text-2xl font-bold">
+                                🇸🇳
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Engagement</p>
+                                <p class="font-serif font-bold text-gray-900 text-lg">100% Made in Sénégal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-6 space-y-6">
+                        <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">L'Essence de Nuur</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
+                            Des soins naturels inspirés par la richesse botanique du Sénégal
+                        </h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            Chez <strong class="text-nuur-800">Nuur Cosmetik</strong>, nous célébrons la beauté naturelle des femmes et des hommes d'ici. Toutes nos formulations sont élaborées avec passion au Sénégal à partir d'huiles végétales pures, de beurres locaux et d'extraits botaniques bienfaisants.
+                        </p>
+                        <ul class="space-y-3 text-sm text-gray-700 font-medium">
+                            <li class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>
+                                Ingrédients purs sélectionnés (Karité de Casamance, Baobab, Moringa)
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>
+                                Formulations saines sans parabènes ni produits éclaircissants
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-6 h-6 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></span>
+                                Parfaitement adaptés aux besoins des cheveux crépus & peaux noires
+                            </li>
+                        </ul>
+                        <div class="pt-2">
+                            <button onclick="showPage('apropos')" class="bg-gray-900 hover:bg-black text-white font-semibold px-7 py-3.5 rounded-full transition-all text-sm">
+                                En Savoir Plus Sur Notre Histoire
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="bg-nuur-50/70 py-16 sm:py-24 border-t border-nuur-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-14">
+                        <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Avis Clients & #NuurCare</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Ce que notre communauté dit de nous</h2>
+                        <p class="text-gray-600 text-sm mt-3">Découvrez les retours d'expérience authentiques sur nos soins capillaires et corporels.</p>
+                    </div>
+
+                    <!-- 5 Reviews Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Review 1: Aïssatou -->
+                        <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <div class="flex items-center text-amber-400 gap-1 text-sm mb-4">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 text-sm italic leading-relaxed">
+                                    « Le Bain d'Huile Fortifiant a littéralement sauvé mes cheveux crépus cassants. Après seulement 3 semaines d’utilisation, mes boucles sont souples, hydratées et tellement faciles à démêler ! Un vrai coup de cœur. »
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-nuur-100 text-nuur-800 font-bold flex items-center justify-center text-sm">
+                                    AS
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">Aïssatou S.</h4>
+                                    <span class="text-xs text-gray-500">Dakar — Bain d'Huile Fortifiant</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 2: Mamadou (Client Homme - Soin Barbe) -->
+                        <div class="bg-white p-7 rounded-3xl shadow-sm border border-nuur-200/80 ring-2 ring-nuur-700/10 flex flex-col justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center text-amber-400 gap-1 text-sm">
+                                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <span class="bg-nuur-100 text-nuur-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Soin Barbe</span>
+                                </div>
+                                <p class="text-gray-700 text-sm italic leading-relaxed">
+                                    « En tant qu’homme, c’est parfois difficile de trouver un bon produit naturel pour la barbe. Le Sérum Barbe & Cheveux de Nuur rend ma barbe douce, bien fournie et sans démangeaisons. Odeur naturelle très agréable ! »
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-gray-900 text-white font-bold flex items-center justify-center text-sm">
+                                    MD
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">Mamadou D.</h4>
+                                    <span class="text-xs text-gray-500">Thiès — Sérum Barbe & Cheveux</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 3: Fatou Bintou -->
+                        <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <div class="flex items-center text-amber-400 gap-1 text-sm mb-4">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 text-sm italic leading-relaxed">
+                                    « Le Lait Corporel au Beurre de Karité est une pure merveille. Ma peau reste hydratée toute la journée sans aucun effet gras. Savoir que c’est fait ici au Sénégal renforce mon attachement à la marque. »
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-nuur-100 text-nuur-800 font-bold flex items-center justify-center text-sm">
+                                    FB
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">Fatou Bintou B.</h4>
+                                    <span class="text-xs text-gray-500">Saint-Louis — Lait Corporel Karité</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 4: Khadija -->
+                        <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <div class="flex items-center text-amber-400 gap-1 text-sm mb-4">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 text-sm italic leading-relaxed">
+                                    « Commande reçue en moins de 24h à Mermoz ! Le packaging est soigné et l’Huile Corporelle Éclat donne un glow naturel magnifique sur la peau. Je recommande à 100% ! »
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-nuur-100 text-nuur-800 font-bold flex items-center justify-center text-sm">
+                                    KN
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">Khadija N.</h4>
+                                    <span class="text-xs text-gray-500">Dakar — Huile Corporelle Satinée</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 5: Aminata -->
+                        <div class="bg-white p-7 rounded-3xl shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-shadow md:col-span-2 lg:col-span-2">
+                            <div>
+                                <div class="flex items-center text-amber-400 gap-1 text-sm mb-4">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-700 text-sm italic leading-relaxed">
+                                    « J’ai testé la gamme capillaire complète pour ma fille et moi-même. Le chantilly de karité nourrit les pointes en profondeur et préserve nos coiffures protectrices. Bravo Nuur pour ces produits de haute qualité Made in Sénégal ! »
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-3 mt-6 pt-4 border-t border-gray-100">
+                                <div class="w-10 h-10 rounded-full bg-nuur-100 text-nuur-800 font-bold flex items-center justify-center text-sm">
+                                    AD
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">Aminata D.</h4>
+                                    <span class="text-xs text-gray-500">Saly — Pack Capillaire Complet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TikTok Banner -->
+            <div class="bg-gray-900 text-white py-14">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-3xl text-nuur-200">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold">Rejoignez la communauté TikTok</h3>
+                            <p class="text-gray-300 text-sm mt-0.5">Suivez nos tutoriels routines & astuces capillaires sur <strong>@nuurcos</strong></p>
+                        </div>
+                    </div>
+                    <a href="https://www.tiktok.com/@nuurcos" target="_blank" class="bg-white text-gray-900 hover:bg-nuur-100 font-bold px-6 py-3.5 rounded-full transition-colors text-sm flex items-center gap-2">
+                        Suivre @nuurcos <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PAGE 2: BOUTIQUE (SHOP PAGE)              -->
+        <!-- ========================================== -->
+        <section id="page-boutique" class="page-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Boutique Officielle</span>
+                    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Tous Nos Soins Naturels</h1>
+                    <p class="text-gray-600 text-sm mt-2">Formulés au Sénégal avec des ingrédients de qualité premium.</p>
+                </div>
+
+                <!-- Category Filters Bar -->
+                <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+                    <button onclick="filterShopCategory('all')" id="cat-all" class="cat-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all bg-nuur-700 text-white shadow-sm">
+                        Toute la Gamme
+                    </button>
+                    <button onclick="filterShopCategory('capillaires')" id="cat-capillaires" class="cat-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all bg-gray-100 text-gray-700 hover:bg-nuur-50 hover:text-nuur-700">
+                        Produits Capillaires
+                    </button>
+                    <button onclick="filterShopCategory('corporels')" id="cat-corporels" class="cat-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all bg-gray-100 text-gray-700 hover:bg-nuur-50 hover:text-nuur-700">
+                        Produits Corporels
+                    </button>
+                </div>
+
+                <!-- Shop Search & Counter -->
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                    <p class="text-sm font-medium text-gray-600">
+                        Affichage de <span id="product-count" class="font-bold text-nuur-800">0</span> produit(s)
+                    </p>
+                    <div class="relative w-full sm:w-64">
+                        <input type="text" id="shop-search-input" onkeyup="searchProducts()" placeholder="Rechercher un soin..." 
+                               class="w-full text-sm bg-white pl-9 pr-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:border-nuur-700">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic products via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PAGE 3: À PROPOS (ABOUT PAGE)             -->
+        <!-- ========================================== -->
+        <section id="page-apropos" class="page-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Notre Philosophie</span>
+                    <h1 class="font-serif text-3xl sm:text-5xl font-bold text-gray-900 mt-2 leading-tight">
+                        La beauté naturelle, illuminée par le Sénégal
+                    </h1>
+                    <p class="text-gray-600 text-base mt-4 leading-relaxed">
+                        Nuur signifie <em class="font-serif">« lumière »</em>. Notre mission est de revivifier votre éclat naturel grâce à la puissance des plantes et des huiles végétales de notre terroir.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                    <div class="space-y-6">
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-gray-900">
+                            Une marque engagée Made in Sénégal 🇸🇳
+                        </h2>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            Née d’une passion profonde pour le soin des cheveux crépus et de la peau noire, <strong class="text-nuur-800">Nuur Cosmetik</strong> met à l'honneur des trésors botaniques locaux : beurre de karité de Casamance, huile de baobab, extraits de moringa et bien d'autres.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            Chaque formulation est pensée pour apporter nutrition intense, douceur et santé, sans aucun composant toxique ou agressif. Nous valorisons la confection locale et le savoir-faire sénégalais.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div class="border-l-2 border-nuur-700 pl-4">
+                                <span class="font-serif font-bold text-2xl text-nuur-800">100%</span>
+                                <p class="text-xs text-gray-500">Naturel & Végétal</p>
+                            </div>
+                            <div class="border-l-2 border-nuur-700 pl-4">
+                                <span class="font-serif font-bold text-2xl text-nuur-800">🇸🇳 Dakar</span>
+                                <p class="text-xs text-gray-500">Conçu au Sénégal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Beauté afro africaine naturelle Nuur" 
+                             class="rounded-3xl shadow-xl w-full h-[450px] object-cover object-top">
+                    </div>
+                </div>
+
+                <!-- Local Ingredients Highlight -->
+                <div class="bg-nuur-50 rounded-3xl p-8 sm:p-12 border border-nuur-100 my-12">
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <h2 class="font-serif text-2xl sm:text-3xl font-bold text-gray-900">Nos Ingrédients Phares</h2>
+                        <p class="text-xs text-nuur-800 uppercase font-bold tracking-wider mt-1">Sélectionnés avec soin pour leur efficacité</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-nuur-100 text-center">
+                            <div class="w-12 h-12 rounded-full bg-nuur-100 text-nuur-800 flex items-center justify-center mx-auto text-xl font-bold mb-3">🧈</div>
+                            <h3 class="font-bold text-gray-900">Beurre de Karité</h3>
+                            <p class="text-xs text-gray-600 mt-2">Nourrit en profondeur, scelle l'hydratation et protège des agressions extérieures.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-nuur-100 text-center">
+                            <div class="w-12 h-12 rounded-full bg-nuur-100 text-nuur-800 flex items-center justify-center mx-auto text-xl font-bold mb-3">🌿</div>
+                            <h3 class="font-bold text-gray-900">Huile de Baobab</h3>
+                            <p class="text-xs text-gray-600 mt-2">Riche en vitamines, elle restaure l'élasticité de la peau et fortifie les cheveux.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-nuur-100 text-center">
+                            <div class="w-12 h-12 rounded-full bg-nuur-100 text-nuur-800 flex items-center justify-center mx-auto text-xl font-bold mb-3">🌱</div>
+                            <h3 class="font-bold text-gray-900">Extrait de Moringa</h3>
+                            <p class="text-xs text-gray-600 mt-2">Un puissant antioxydant purifiant qui revitalise le cuir chevelu et revitalise la peau.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PAGE 4: CONTACT (CONTACT PAGE)            -->
+        <!-- ========================================== -->
+        <section id="page-contact" class="page-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Service Client & Commandes</span>
+                    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Contactez-Nous</h1>
+                    <p class="text-gray-600 text-sm mt-2">Notre équipe est à votre écoute pour vous conseiller et prendre vos commandes.</p>
+                </div>
+
+                <div class="grid md:grid-cols-12 gap-8 items-start">
+                    
+                    <div class="md:col-span-5 space-y-6">
+                        <div class="bg-nuur-50 p-6 rounded-3xl border border-nuur-100">
+                            <div class="w-12 h-12 rounded-full bg-nuur-700 text-white flex items-center justify-center text-xl mb-4">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <h3 class="font-serif font-bold text-xl text-gray-900">Téléphone & WhatsApp</h3>
+                            <p class="text-gray-600 text-xs mt-1">Disponibles du Lundi au Samedi (09h - 19h)</p>
+                            <a href="https://wa.me/221762382500" target="_blank" class="inline-block mt-4 font-bold text-lg text-nuur-800 hover:text-nuur-900">
+                                +221 76 238 25 00
+                            </a>
+                        </div>
+
+                        <div class="bg-gray-900 text-white p-6 rounded-3xl">
+                            <div class="w-12 h-12 rounded-full bg-white/10 text-nuur-200 flex items-center justify-center text-xl mb-4">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </div>
+                            <h3 class="font-serif font-bold text-xl">TikTok Officiel</h3>
+                            <p class="text-gray-300 text-xs mt-1">Suivez nos vidéos & routines quotidiennes</p>
+                            <a href="https://www.tiktok.com/@nuurcos" target="_blank" class="inline-block mt-4 font-bold text-base text-nuur-200 hover:underline">
+                                @nuurcos
+                            </a>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-3xl border border-gray-200">
+                            <div class="flex items-center gap-3 text-nuur-700 mb-2">
+                                <i class="fa-solid fa-truck-ramp-box text-xl"></i>
+                                <h4 class="font-bold text-gray-900">Zones de Livraison</h4>
+                            </div>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                • Dakar & Banlieue : Livraison express sous 24h<br>
+                                • Régions du Sénégal : Envoi sous 48h via nos partenaires de transport
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-7 bg-white p-8 rounded-3xl border border-gray-200 shadow-sm">
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 mb-2">Envoyez-nous un message direct</h3>
+                        <p class="text-xs text-gray-500 mb-6">Remplissez ce formulaire, il redirigera directement votre demande pré-remplie sur notre WhatsApp.</p>
+
+                        <form onsubmit="sendWhatsAppContact(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Votre Nom & Prénom</label>
+                                <input type="text" id="contact-name" required placeholder="Ex: Mariama Diallo" 
+                                       class="w-full text-sm px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-nuur-700 bg-gray-50/50">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Sujet de la demande</label>
+                                <select id="contact-subject" class="w-full text-sm px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-nuur-700 bg-gray-50/50">
+                                    <option value="Conseil Produit">Conseil produit ou routine</option>
+                                    <option value="Passer une Commande">Passer une commande directe</option>
+                                    <option value="Suivi de Livraison">Suivi de ma livraison</option>
+                                    <option value="Autre Information">Autre information</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Votre Message</label>
+                                <textarea id="contact-message" rows="4" required placeholder="Bonjour Nuur Cosmetik, je souhaiterais en savoir plus sur..." 
+                                          class="w-full text-sm px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-nuur-700 bg-gray-50/50"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-nuur-700 hover:bg-nuur-800 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-3">
+                                <i class="fa-brands fa-whatsapp text-xl"></i> Envoyer sur WhatsApp (+221 76 238 25 00)
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PAGE 5: MON COMPTE (USER ACCOUNT PAGE)    -->
+        <!-- ========================================== -->
+        <section id="page-compte" class="page-section hidden py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-nuur-700 text-xs uppercase font-bold tracking-widest">Espace Membre Nuur</span>
+                    <h1 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-2">Mon Compte</h1>
+                    <p class="text-gray-600 text-sm mt-2">Gérez vos informations, suivez vos commandes et vos routines capillaires.</p>
+                </div>
+
+                <!-- Account Dashboard Layout -->
+                <div class="grid md:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Left Sidebar Profile Info -->
+                    <div class="md:col-span-4 bg-nuur-50/60 p-6 rounded-3xl border border-nuur-100 text-center space-y-4">
+                        <div class="relative w-24 h-24 mx-auto rounded-full bg-nuur-700 text-white flex items-center justify-center text-3xl font-serif font-bold shadow-md">
+                            FS
+                            <span class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 border-2 border-white rounded-full"></span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 text-lg">Fatou Sow</h3>
+                            <p class="text-xs text-nuur-800 font-semibold">Membre Club #NuurCare</p>
+                            <p class="text-xs text-gray-500 mt-1"><i class="fa-solid fa-location-dot"></i> Dakar, Sénégal</p>
+                        </div>
+
+                        <div class="pt-2 border-t border-nuur-100 grid grid-cols-2 gap-2 text-center text-xs">
+                            <div class="p-2 bg-white rounded-xl border border-gray-100">
+                                <span class="font-bold text-nuur-800 text-base block">3</span>
+                                <span class="text-gray-500">Commandes</span>
+                            </div>
+                            <div class="p-2 bg-white rounded-xl border border-gray-100">
+                                <span class="font-bold text-nuur-800 text-base block">120 pts</span>
+                                <span class="text-gray-500">Fidélité</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 pt-2 text-left text-xs">
+                            <button onclick="switchAccountTab('orders')" id="tab-btn-orders" class="account-tab-btn w-full p-3 rounded-xl font-bold flex items-center gap-3 bg-nuur-700 text-white">
+                                <i class="fa-solid fa-box"></i> Mes Commandes Récentes
+                            </button>
+                            <button onclick="switchAccountTab('routines')" id="tab-btn-routines" class="account-tab-btn w-full p-3 rounded-xl font-medium text-gray-700 hover:bg-white flex items-center gap-3">
+                                <i class="fa-solid fa-heart"></i> Mes Produits Favoris
+                            </button>
+                            <button onclick="switchAccountTab('profile')" id="tab-btn-profile" class="account-tab-btn w-full p-3 rounded-xl font-medium text-gray-700 hover:bg-white flex items-center gap-3">
+                                <i class="fa-solid fa-user-gear"></i> Informations Personnelles
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Tab Content -->
+                    <div class="md:col-span-8 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm">
+                        
+                        <!-- Tab 1: Orders -->
+                        <div id="account-tab-orders" class="account-tab-content space-y-6">
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <h3 class="font-serif font-bold text-xl text-gray-900">Historique des Commandes</h3>
+                                <span class="text-xs bg-nuur-100 text-nuur-800 font-bold px-3 py-1 rounded-full">3 Commandes effectuées</span>
+                            </div>
+
+                            <div class="space-y-4">
+                                <!-- Order Item 1 -->
+                                <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-sm text-gray-900">Commande #NUUR-8492</span>
+                                            <span class="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Livrée</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Date : 04 Mars 2026 • 2 Articles</p>
+                                        <p class="text-xs text-gray-700 font-medium mt-1">• Bain d'Huile Fortifiant (x1)<br>• Chantilly de Karité (x1)</p>
+                                    </div>
+                                    <div class="text-right sm:border-l sm:border-gray-200 sm:pl-4">
+                                        <p class="font-serif font-bold text-nuur-800 text-base">13.500 FCFA</p>
+                                        <a href="https://wa.me/221762382500?text=Bonjour%20Nuur,%20suivi%20de%20ma%20commande%20%23NUUR-8492" target="_blank" 
+                                           class="inline-block mt-2 text-xs text-nuur-700 font-bold hover:underline">
+                                            <i class="fa-brands fa-whatsapp"></i> Suivi WhatsApp
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Order Item 2 -->
+                                <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-sm text-gray-900">Commande #NUUR-7210</span>
+                                            <span class="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full">Livrée</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 mt-1">Date : 18 Février 2026 • 1 Article</p>
+                                        <p class="text-xs text-gray-700 font-medium mt-1">• Lait Corporel Hydratant Karité & Hibiscus (x1)</p>
+                                    </div>
+                                    <div class="text-right sm:border-l sm:border-gray-200 sm:pl-4">
+                                        <p class="font-serif font-bold text-nuur-800 text-base">8.500 FCFA</p>
+                                        <a href="https://wa.me/221762382500?text=Bonjour%20Nuur,%20suivi%20de%20ma%20commande%20%23NUUR-7210" target="_blank" 
+                                           class="inline-block mt-2 text-xs text-nuur-700 font-bold hover:underline">
+                                            <i class="fa-brands fa-whatsapp"></i> Suivi WhatsApp
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 2: Favorites -->
+                        <div id="account-tab-routines" class="account-tab-content hidden space-y-6">
+                            <div class="border-b border-gray-100 pb-4">
+                                <h3 class="font-serif font-bold text-xl text-gray-900">Mes Soins Favoris & Routines</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="p-4 border border-gray-100 rounded-2xl flex items-center gap-3 bg-gray-50/50">
+                                    <img src="https://images.unsplash.com/photo-1608248597260-234b3f11d13f?q=80&w=200&auto=format&fit=crop" class="w-14 h-14 object-cover rounded-xl">
+                                    <div>
+                                        <h5 class="text-xs font-bold text-gray-900">Bain d'Huile Fortifiant Capillaire</h5>
+                                        <span class="text-xs text-nuur-800 font-bold">7.500 FCFA</span>
+                                        <button onclick="addToCart('p1')" class="block text-[11px] text-nuur-700 font-bold hover:underline mt-1">+ Ajouter au Panier</button>
+                                    </div>
+                                </div>
+                                <div class="p-4 border border-gray-100 rounded-2xl flex items-center gap-3 bg-gray-50/50">
+                                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=200&auto=format&fit=crop" class="w-14 h-14 object-cover rounded-xl">
+                                    <div>
+                                        <h5 class="text-xs font-bold text-gray-900">Chantilly de Karité Nourrissante</h5>
+                                        <span class="text-xs text-nuur-800 font-bold">6.000 FCFA</span>
+                                        <button onclick="addToCart('p2')" class="block text-[11px] text-nuur-700 font-bold hover:underline mt-1">+ Ajouter au Panier</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 3: Profile Info -->
+                        <div id="account-tab-profile" class="account-tab-content hidden space-y-6">
+                            <div class="border-b border-gray-100 pb-4">
+                                <h3 class="font-serif font-bold text-xl text-gray-900">Informations Personnelles</h3>
+                            </div>
+                            <form onsubmit="alert('Profil mis à jour avec succès !'); return false;" class="space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Prénom</label>
+                                        <input type="text" value="Fatou" class="w-full text-xs p-3 rounded-xl border border-gray-200">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Nom</label>
+                                        <input type="text" value="Sow" class="w-full text-xs p-3 rounded-xl border border-gray-200">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Téléphone WhatsApp</label>
+                                    <input type="tel" value="+221 77 123 45 67" class="w-full text-xs p-3 rounded-xl border border-gray-200">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-gray-700 mb-1">Adresse de livraison à Dakar</label>
+                                    <input type="text" value="Sacré-Cœur 3, Dakar" class="w-full text-xs p-3 rounded-xl border border-gray-200">
+                                </div>
+                                <button type="submit" class="bg-nuur-700 text-white font-bold px-6 py-3 rounded-xl text-xs hover:bg-nuur-800 transition-colors">
+                                    Enregistrer les modifications
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SLIDE-OVER SHOPPING CART DRAWER -->
+    <div id="cart-drawer-overlay" onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/50 z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        
+        <!-- Drawer Header -->
+        <div class="p-6 border-b border-gray-100 flex items-center justify-between bg-nuur-50">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-nuur-700 text-xl"></i>
+                <h3 class="font-serif font-bold text-xl text-gray-900">Mon Panier Nuur</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="p-2 text-gray-400 hover:text-gray-700">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Content Items -->
+        <div id="cart-items-container" class="p-6 flex-1 overflow-y-auto space-y-4">
+            <!-- Dynamic Cart Items injected via JS -->
+        </div>
+
+        <!-- Customer Delivery Inputs for WhatsApp Order -->
+        <div id="cart-customer-form" class="px-6 py-4 bg-gray-50/80 border-t border-gray-100 space-y-3">
+            <p class="text-xs font-bold text-gray-800 uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-location-dot text-nuur-700"></i> Informations de Livraison
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+                <input type="text" id="checkout-name" placeholder="Votre Nom complet" 
+                       class="text-xs bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-nuur-700">
+                <input type="tel" id="checkout-phone" placeholder="Téléphone (ex: 77...)" 
+                       class="text-xs bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-nuur-700">
+            </div>
+            <input type="text" id="checkout-address" placeholder="Quartier / Adresse à Dakar ou Région" 
+                   class="w-full text-xs bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-nuur-700">
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-6 border-t border-gray-100 bg-gray-50 space-y-4">
+            <div class="flex items-center justify-between text-base font-bold text-gray-900">
+                <span>Total Estimé</span>
+                <span id="cart-total-price" class="text-nuur-800 font-serif text-xl">0 FCFA</span>
+            </div>
+            
+            <button onclick="checkoutWhatsApp()" class="w-full bg-nuur-700 hover:bg-nuur-800 text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-3 shadow-lg hover:shadow-xl">
+                <i class="fa-brands fa-whatsapp text-2xl"></i> Commander sur WhatsApp avec ces produits
+            </button>
+        </div>
+    </div>
+
+    <!-- PRODUCT QUICK VIEW MODAL -->
+    <div id="product-modal-backdrop" onclick="closeProductModal()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div onclick="event.stopPropagation()" class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform transition-all relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center shadow-md transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-product-content" class="grid md:grid-cols-2">
+                <!-- Modal dynamic contents injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH MODAL -->
+    <div id="search-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-20 px-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl relative">
+            <div class="flex items-center justify-between pb-4 border-b border-gray-100">
+                <h3 class="font-bold text-gray-900">Rechercher un soin Nuur</h3>
+                <button onclick="toggleSearchModal()" class="text-gray-400 hover:text-gray-700"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="mt-4">
+                <input type="text" id="quick-search-input" onkeyup="handleQuickSearch(this.value)" placeholder="Tapez le nom du produit (ex: Karité, Huile...)" 
+                       class="w-full p-4 rounded-xl bg-gray-50 border border-gray-200 focus:outline-none focus:border-nuur-700 text-sm">
+            </div>
+            <div id="quick-search-results" class="mt-4 max-h-60 overflow-y-auto space-y-2">
+                <!-- Search results injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/221762382500?text=Bonjour%20Nuur%20Cosmetik,%20je%20souhaite%20commander%20un%20produit" 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-40 bg-green-500 hover:bg-green-600 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center shadow-2xl pulse-wa transition-transform duration-300"
+       title="Discuter sur WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
+    </a>
+
+    <!-- FOOTER -->
+    <footer class="bg-nuur-dark text-white pt-16 pb-8 border-t border-nuur-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-nuur-800/80">
+                
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-nuur-200">
+                            <i class="fa-solid fa-sun text-lg"></i>
+                        </div>
+                        <span class="handwritten-brand text-white">Nuur Cosmetik</span>
+                    </div>
+                    <p class="text-gray-300 text-xs sm:text-sm leading-relaxed max-w-sm font-light">
+                        Marque sénégalaise dédiée aux soins capillaires et corporels 100% naturels. Formulés avec amour au Sénégal pour révéler votre éclat originel.
+                    </p>
+                    <div class="pt-2">
+                        <span class="inline-block bg-white/10 text-nuur-200 text-xs font-semibold px-3 py-1 rounded-full border border-white/10">
+                            #NuurCare — Made in Sénégal 🇸🇳
+                        </span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-nuur-200">Navigation</h4>
+                    <ul class="space-y-2 text-xs sm:text-sm text-gray-300">
+                        <li><button onclick="showPage('home')" class="hover:text-white transition-colors">Accueil</button></li>
+                        <li><button onclick="showPage('boutique')" class="hover:text-white transition-colors">Boutique Officielle</button></li>
+                        <li><button onclick="showPage('apropos')" class="hover:text-white transition-colors">À Propos de Nous</button></li>
+                        <li><button onclick="showPage('contact')" class="hover:text-white transition-colors">Contact & Commandes</button></li>
+                        <li><button onclick="showPage('compte')" class="hover:text-white transition-colors">Mon Compte</button></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-4 space-y-3">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-nuur-200">Nous Contacter</h4>
+                    <div class="space-y-3 text-xs sm:text-sm text-gray-300">
+                        <p class="flex items-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-green-400 text-lg w-5 text-center"></i>
+                            <a href="https://wa.me/221762382500" target="_blank" class="hover:underline font-semibold text-white">+221 76 238 25 00</a>
+                        </p>
+                        <p class="flex items-center gap-3">
+                            <i class="fa-brands fa-tiktok text-nuur-200 text-lg w-5 text-center"></i>
+                            <a href="https://www.tiktok.com/@nuurcos" target="_blank" class="hover:underline">@nuurcos (TikTok Officiel)</a>
+                        </p>
+                        <p class="flex items-center gap-3 text-gray-400">
+                            <i class="fa-solid fa-location-dot text-lg w-5 text-center"></i>
+                            Dakar, Sénégal 🇸🇳
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+                <p>&copy; 2026 Nuur Cosmetik. Tous droits réservés. Made in Sénégal 🇸🇳</p>
+                <div class="flex space-x-4">
+                    <span>Soins Naturels & Bio</span>
+                    <span>•</span>
+                    <span>#NuurCare</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // ==========================================
+        // PRODUCTS DATABASE (100% Real Photos of Natural Skincare & Black African Hair/Skin Care)
+        // ==========================================
+        const PRODUCTS_DATA = [
+            {
+                id: 'p1',
+                name: 'Bain d\'Huile Fortifiant Capillaire',
+                category: 'capillaires',
+                price: 7500,
+                formattedPrice: '7.500 FCFA',
+                badge: 'Best-Seller',
+                image: 'https://images.unsplash.com/photo-1608248597260-234b3f11d13f?q=80&w=800&auto=format&fit=crop',
+                rating: 5,
+                reviewsCount: 28,
+                description: 'Sérum d’huiles végétales locales (Baobab, Ricin, Moringa) pour stimuler la pousse, limiter la casse et fortifier les cheveux crépus.',
+                volume: '100 ml',
+                ingredients: 'Huile de Baobab du Sénégal, Huile de Ricin, Huile de Moringa, Vitamine E.'
+            },
+            {
+                id: 'p2',
+                name: 'Chantilly de Karité Nourrissante',
+                category: 'capillaires',
+                price: 6000,
+                formattedPrice: '6.000 FCFA',
+                badge: 'Made in Sénégal',
+                image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=800&auto=format&fit=crop',
+                rating: 5,
+                reviewsCount: 34,
+                description: 'Texture aérée ultra-fondante au beurre de Karité pur de Casamance. Hydrate intensément les boucles et scelle l\'hydratation.',
+                volume: '200 g',
+                ingredients: 'Beurre de Karité brut, Huile d\'Amande douce, Extrait naturel de Vanille.'
+            },
+            {
+                id: 'p3',
+                name: 'Sérum Barbe & Cuir Chevelu (Homme)',
+                category: 'capillaires',
+                price: 8000,
+                formattedPrice: '8.000 FCFA',
+                badge: 'Soin Homme',
+                image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+                rating: 5,
+                reviewsCount: 19,
+                description: 'Soin spécial barbe et cheveux masculins. Adoucit le poil de barbe, stoppe les démangeaisons et stimule une pousse homogène.',
+                volume: '50 ml',
+                ingredients: 'Huile de Baobab, Huile de Jojoba, Huile essentielle de Menthe poivrée, Vitamine E.'
+            },
+            {
+                id: 'p4',
+                name: 'Lait Corporel Hydratant Karité & Hibiscus',
+                category: 'corporels',
+                price: 8500,
+                formattedPrice: '8.500 FCFA',
+                badge: 'Coup de Cœur',
+                image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800&auto=format&fit=crop',
+                rating: 5,
+                reviewsCount: 42,
+                description: 'Un lait corporel léger et rapidement absorbé qui laisse la peau souple, veloutée et délicatement parfumée aux fleurs de Bissap.',
+                volume: '250 ml',
+                ingredients: 'Eau de Fleur d\'Hibiscus, Beurre de Karité, Glycérine végétale, Huile de Coco.'
+            },
+            {
+                id: 'p5',
+                name: 'Huile Corporelle Satinée Éclat',
+                category: 'corporels',
+                price: 9000,
+                formattedPrice: '9.000 FCFA',
+                badge: 'Glow Naturel',
+                image: 'https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec?q=80&w=800&auto=format&fit=crop',
+                rating: 5,
+                reviewsCount: 15,
+                description: 'Sublime le teint et apporte une nutrition sans fini gras. Idéale après la douche pour sublimer l\'éclat naturel de la peau.',
+                volume: '150 ml',
+                ingredients: 'Huile de Baobab, Huile de Sésame pressée à froid, Parfum naturel.'
+            },
+            {
+                id: 'p6',
+                name: 'Shampoing Doux Purifiant au Moringa',
+                category: 'capillaires',
+                price: 6500,
+                formattedPrice: '6.500 FCFA',
+                badge: 'Nouveauté',
+                image: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?q=80&w=800&auto=format&fit=crop',
+                rating: 4,
+                reviewsCount: 11,
+                description: 'Nettoie en douceur sans dessécher les fibres capillaires. Élimine les impuretés tout en préservant le cuir chevelu.',
+                volume: '250 ml',
+                ingredients: 'Poudre de Moringa bio, Base lavante douce d\'origine végétale, Miel pur.'
+            },
+            {
+                id: 'p7',
+                name: 'Baume Corporel Régénérant',
+                category: 'corporels',
+                price: 7000,
+                formattedPrice: '7.000 FCFA',
+                badge: 'Soin Réparateur',
+                image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=800&auto=format&fit=crop',
+                rating: 5,
+                reviewsCount: 23,
+                description: 'Un baume riche pour réparer les zones sèches (coudes, talons, mains). Adoucit immédiatement la peau.',
+                volume: '150 g',
+                ingredients: 'Beurre de Karité brut, Cire d\'abeille naturelle, Huile de Mangue.'
+            },
+            {
+                id: 'p8',
+                name: 'Pack Routine Capillaire Complète',
+                category: 'capillaires',
+                price: 18500,
+                formattedPrice: '18.500 FCFA',
+                badge: 'Offre Spéciale',
+                image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=800&auto=format&fit=crop',
+                rating: 5,
+                reviewsCount: 56,
+                description: 'Le trio parfait pour votre routine : Shampoing Purifiant Moringa + Bain d\'Huile Fortifiant + Chantilly Karité.',
+                volume: 'Pack 3 Produits',
+                ingredients: 'Produits capillaires combinés 100% naturels.'
+            }
+        ];
+
+        // Global Cart State
+        let cartState = [];
+
+        // Navigation Page Switcher
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(p => p.classList.add('hidden'));
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
+            // Update Desktop Nav styles
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('text-nuur-700', 'font-semibold', 'border-b-2', 'border-nuur-700');
+                btn.classList.add('text-gray-600');
+            });
+
+            const activeBtn = document.getElementById('nav-' + pageId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-gray-600');
+                activeBtn.classList.add('text-nuur-700', 'font-semibold', 'border-b-2', 'border-nuur-700');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu) {
+                menu.classList.toggle('hidden');
+                if (icon) {
+                    if (menu.classList.contains('hidden')) {
+                        icon.className = "fa-solid fa-bars text-2xl";
+                    } else {
+                        icon.className = "fa-solid fa-xmark text-2xl";
+                    }
+                }
+            }
+        }
+
+        // Cart Drawer Toggle
+        function toggleCartDrawer() {
+            const overlay = document.getElementById('cart-drawer-overlay');
+            const drawer = document.getElementById('cart-drawer');
+
+            if (overlay && drawer) {
+                if (drawer.classList.contains('translate-x-full')) {
+                    // Open Drawer
+                    overlay.classList.remove('hidden');
+                    setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                    drawer.classList.remove('translate-x-full');
+                } else {
+                    // Close Drawer
+                    overlay.classList.add('opacity-0');
+                    drawer.classList.add('translate-x-full');
+                    setTimeout(() => overlay.classList.add('hidden'), 300);
+                }
+            }
+        }
+
+        // Add Product to Cart
+        function addToCart(productId) {
+            const product = PRODUCTS_DATA.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingIndex = cartState.findIndex(item => item.id === productId);
+            if (existingIndex > -1) {
+                cartState[existingIndex].quantity += 1;
+            } else {
+                cartState.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    formattedPrice: product.formattedPrice,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+
+            renderCart();
+            
+            // Open Cart Drawer automatically so user sees the addition
+            const drawer = document.getElementById('cart-drawer');
+            if (drawer && drawer.classList.contains('translate-x-full')) {
+                toggleCartDrawer();
+            }
+        }
+
+        // Update Cart Item Quantity
+        function updateCartQuantity(index, delta) {
+            if (cartState[index]) {
+                cartState[index].quantity += delta;
+                if (cartState[index].quantity <= 0) {
+                    cartState.splice(index, 1);
+                }
+                renderCart();
+            }
+        }
+
+        // Render Cart UI
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const badge = document.getElementById('cart-badge');
+            const totalPriceEl = document.getElementById('cart-total-price');
+
+            const totalItems = cartState.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cartState.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+            if (badge) badge.innerText = totalItems;
+            if (totalPriceEl) totalPriceEl.innerText = totalPrice.toLocaleString('fr-FR') + ' FCFA';
+
+            if (!container) return;
+
+            if (cartState.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-400 space-y-3">
+                        <i class="fa-solid fa-bag-shopping text-4xl"></i>
+                        <p class="text-sm font-medium">Votre panier est vide.</p>
+                        <button onclick="toggleCartDrawer(); showPage('boutique')" class="text-xs bg-nuur-700 text-white font-bold px-4 py-2 rounded-full">
+                            Découvrir nos soins
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cartState.map((item, idx) => `
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl">
+                    <div class="flex-1">
+                        <h4 class="text-xs font-bold text-gray-900">${item.name}</h4>
+                        <span class="text-xs text-nuur-800 font-serif font-bold">${(item.price * item.quantity).toLocaleString('fr-FR')} FCFA</span>
+                        <div class="flex items-center gap-3 mt-1">
+                            <div class="flex items-center border border-gray-200 rounded-lg bg-white text-xs">
+                                <button onclick="updateCartQuantity(${idx}, -1)" class="px-2 py-0.5 text-gray-600 hover:bg-gray-100 rounded-l-lg">-</button>
+                                <span class="px-2 font-bold">${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${idx}, 1)" class="px-2 py-0.5 text-gray-600 hover:bg-gray-100 rounded-r-lg">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="updateCartQuantity(${idx}, -${item.quantity})" class="text-gray-400 hover:text-red-500 p-2 text-sm">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // WhatsApp Checkout Direct Integrator with product details and customer information
+        function checkoutWhatsApp() {
+            if (cartState.length === 0) {
+                alert("Votre panier est vide. Veuillez ajouter des soins avant de commander.");
+                return;
+            }
+
+            const customerName = document.getElementById('checkout-name')?.value.trim() || 'Non spécifié';
+            const customerPhone = document.getElementById('checkout-phone')?.value.trim() || 'Non spécifié';
+            const customerAddress = document.getElementById('checkout-address')?.value.trim() || 'Dakar / À préciser';
+
+            let message = "Bonjour Nuur Cosmetik 🇸🇳,\n";
+            message += "Je souhaite passer la commande suivante :\n\n";
+
+            message += "📋 *COORDONNÉES DU CLIENT :*\n";
+            message += `• *Nom :* ${customerName}\n`;
+            message += `• *Téléphone :* ${customerPhone}\n`;
+            message += `• *Adresse / Quartier :* ${customerAddress}\n\n`;
+
+            message += "🛍️ *DÉTAIL DE LA COMMANDE :*\n";
+            let total = 0;
+
+            cartState.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `${index + 1}. *${item.name}*\n`;
+                message += `   └ Quantité : ${item.quantity} | Prix : ${subtotal.toLocaleString('fr-FR')} FCFA\n`;
+            });
+
+            message += `\n💰 *TOTAL COMMANDE : ${total.toLocaleString('fr-FR')} FCFA*\n\n`;
+            message += "Merci de me confirmer la disponibilité et le délai de livraison !";
+
+            const encodedURL = `https://wa.me/221762382500?text=${encodeURIComponent(message)}`;
+            window.open(encodedURL, '_blank');
+        }
+
+        // Contact Form direct to WhatsApp
+        function sendWhatsAppContact(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const subject = document.getElementById('contact-subject').value;
+            const text = document.getElementById('contact-message').value;
+
+            const message = `Bonjour Nuur Cosmetik 🇸🇳,\n\n*Nom:* ${name}\n*Sujet:* ${subject}\n*Message:* ${text}`;
+            const encodedURL = `https://wa.me/221762382500?text=${encodeURIComponent(message)}`;
+            window.open(encodedURL, '_blank');
+        }
+
+        // Product Card HTML Generator
+        function createProductCardHTML(product) {
+            return `
+                <div class="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="relative rounded-2xl overflow-hidden h-52 mb-4 bg-gray-50">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-3 left-3 bg-nuur-700 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                                ${product.badge}
+                            </span>
+                            <button onclick="openProductModal('${product.id}')" class="absolute bottom-3 right-3 bg-white/90 hover:bg-white text-gray-800 p-2.5 rounded-full shadow-md text-xs transition-colors" title="Aperçu rapide">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center text-amber-400 text-xs gap-1 mb-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            <span class="text-gray-400 text-[10px] ml-1">(${product.reviewsCount})</span>
+                        </div>
+
+                        <h3 class="font-bold text-gray-900 text-sm leading-snug line-clamp-2">${product.name}</h3>
+                        <p class="text-xs text-gray-500 mt-1 line-clamp-2">${product.description}</p>
+                    </div>
+
+                    <div class="pt-4 mt-2 border-t border-gray-50 flex items-center justify-between gap-2">
+                        <div>
+                            <span class="font-serif font-bold text-nuur-800 text-base block">${product.formattedPrice}</span>
+                            <span class="text-[10px] text-gray-400 block">${product.volume}</span>
+                        </div>
+                        <button onclick="addToCart('${product.id}')" class="bg-nuur-700 hover:bg-nuur-800 text-white font-bold p-3 rounded-2xl transition-colors flex items-center gap-2 text-xs">
+                            <i class="fa-solid fa-cart-plus"></i> <span class="hidden sm:inline">Ajouter</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Filter Shop Category
+        function filterShopCategory(category) {
+            showPage('boutique');
+            
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.className = "cat-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all bg-gray-100 text-gray-700 hover:bg-nuur-50 hover:text-nuur-700";
+            });
+
+            const activeBtn = document.getElementById('cat-' + category);
+            if (activeBtn) {
+                activeBtn.className = "cat-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all bg-nuur-700 text-white shadow-sm";
+            }
+
+            const grid = document.getElementById('shop-products-grid');
+            const counter = document.getElementById('product-count');
+
+            let filtered = PRODUCTS_DATA;
+            if (category !== 'all') {
+                filtered = PRODUCTS_DATA.filter(p => p.category === category);
+            }
+
+            if (counter) counter.innerText = filtered.length;
+            if (grid) grid.innerHTML = filtered.map(p => createProductCardHTML(p)).join('');
+        }
+
+        // Product Modal Quick View
+        function openProductModal(productId) {
+            const product = PRODUCTS_DATA.find(p => p.id === productId);
+            if (!product) return;
+
+            const backdrop = document.getElementById('product-modal-backdrop');
+            const container = document.getElementById('modal-product-content');
+
+            container.innerHTML = `
+                <div class="h-64 md:h-auto relative">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6 md:p-8 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="bg-nuur-100 text-nuur-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                            ${product.badge}
+                        </span>
+                        <h3 class="font-serif text-2xl font-bold text-gray-900 mt-2">${product.name}</h3>
+                        <p class="font-serif font-bold text-nuur-800 text-xl mt-1">${product.formattedPrice} <span class="text-xs text-gray-400 font-sans font-normal">(${product.volume})</span></p>
+                        
+                        <div class="mt-3 text-xs text-gray-600 space-y-2">
+                            <p>${product.description}</p>
+                            <p class="bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                <strong class="text-gray-900 block mb-0.5">Ingrédients Purs :</strong>
+                                ${product.ingredients}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col gap-2">
+                        <button onclick="addToCart('${product.id}'); closeProductModal()" class="w-full bg-nuur-700 hover:bg-nuur-800 text-white font-bold py-3.5 rounded-xl transition-colors text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-plus"></i> Ajouter au Panier
+                        </button>
+                        <a href="https://wa.me/221762382500?text=Bonjour%20Nuur%20Cosmetik,%20je%20souhaite%20commander%20:${encodeURIComponent(product.name)}" 
+                           target="_blank" 
+                           class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3.5 rounded-xl transition-colors text-sm flex items-center justify-center gap-2 text-center">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Commander sur WhatsApp
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            backdrop.classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal-backdrop').classList.add('hidden');
+        }
+
+        // Search Modal Functions
+        function toggleSearchModal() {
+            const modal = document.getElementById('search-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function handleQuickSearch(query) {
+            const resultsBox = document.getElementById('quick-search-results');
+            if (!query.trim()) {
+                resultsBox.innerHTML = '';
+                return;
+            }
+
+            const matches = PRODUCTS_DATA.filter(p => p.name.toLowerCase().includes(query.toLowerCase()));
+            if (matches.length === 0) {
+                resultsBox.innerHTML = '<p class="text-xs text-gray-400 text-center py-3">Aucun soin trouvé.</p>';
+                return;
+            }
+
+            resultsBox.innerHTML = matches.map(p => `
+                <div onclick="openProductModal('${p.id}'); toggleSearchModal()" class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-xl cursor-pointer">
+                    <img src="${p.image}" class="w-10 h-10 object-cover rounded-lg">
+                    <div class="flex-1">
+                        <h5 class="text-xs font-bold text-gray-900">${p.name}</h5>
+                        <span class="text-[11px] text-nuur-800 font-bold">${p.formattedPrice}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function searchProducts() {
+            const input = document.getElementById('shop-search-input').value.toLowerCase();
+            const filtered = PRODUCTS_DATA.filter(p => p.name.toLowerCase().includes(input));
+            const container = document.getElementById('shop-products-grid');
+            const counter = document.getElementById('product-count');
+
+            if (counter) counter.innerText = filtered.length;
+            if (container) container.innerHTML = filtered.map(product => createProductCardHTML(product)).join('');
+        }
+
+        // Account Tabs Switcher
+        function switchAccountTab(tabName) {
+            const contents = document.querySelectorAll('.account-tab-content');
+            contents.forEach(c => c.classList.add('hidden'));
+
+            const targetContent = document.getElementById('account-tab-' + tabName);
+            if (targetContent) targetContent.classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.account-tab-btn');
+            buttons.forEach(btn => {
+                btn.className = "account-tab-btn w-full p-3 rounded-xl font-medium text-gray-700 hover:bg-white flex items-center gap-3";
+            });
+
+            const activeBtn = document.getElementById('tab-btn-' + tabName);
+            if (activeBtn) {
+                activeBtn.className = "account-tab-btn w-full p-3 rounded-xl font-bold flex items-center gap-3 bg-nuur-700 text-white";
+            }
+        }
+
+        // Initialize Products on Page Load
+        window.onload = function() {
+            // Render Featured Products on Home Page
+            const homeFeaturedContainer = document.getElementById('home-featured-products');
+            if (homeFeaturedContainer) {
+                homeFeaturedContainer.innerHTML = PRODUCTS_DATA.slice(0, 4).map(p => createProductCardHTML(p)).join('');
+            }
+
+            // Render Shop Grid
+            const shopGrid = document.getElementById('shop-products-grid');
+            const shopCount = document.getElementById('product-count');
+            if (shopGrid) {
+                shopGrid.innerHTML = PRODUCTS_DATA.map(p => createProductCardHTML(p)).join('');
+            }
+            if (shopCount) {
+                shopCount.innerText = PRODUCTS_DATA.length;
+            }
+
+            // Render Empty Cart Initial State
+            renderCart();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# GitHub Pages : fichiers du dépôt qui ne doivent pas être publiés sur le site
+exclude:
+  - ressources/
+  - scripts/
+  - supabase/
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - tailwind.config.js
+  - assets/css/input.css
+  - README.md

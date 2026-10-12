@@ -1,0 +1,107 @@
+/* Source Tailwind : après modification, régénérer style.css avec `npm run build:css` */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    [hidden] { display: none !important; }
+    button { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+    /* Navigation */
+    .nav-link { @apply text-gray-600 hover:text-nuur-700 transition-colors pb-1 border-b-2 border-transparent; }
+    .nav-link.is-active { @apply text-nuur-700 font-semibold border-nuur-700; }
+    .mobile-nav-link { @apply flex items-center justify-between py-3 border-b border-gray-100 text-gray-700 hover:text-nuur-700; }
+    .mobile-nav-link.is-active { @apply text-nuur-700 font-semibold; }
+    .account-btn.is-active { @apply text-nuur-700; }
+
+    /* Sections */
+    .section-heading { @apply text-center max-w-2xl mx-auto mb-10 sm:mb-12; }
+    .eyebrow { @apply text-nuur-700 text-xs uppercase font-bold tracking-widest; }
+    .pillar { @apply p-4 bg-white rounded-2xl shadow-sm border border-nuur-100/60 flex flex-col items-center; }
+    .pillar-icon { @apply w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-lg sm:text-xl mb-3; }
+    .category-card { @apply relative block rounded-3xl overflow-hidden shadow-lg h-80 sm:h-96 transition-transform duration-300 hover:-translate-y-1; }
+    .check-item { @apply flex items-start gap-3; }
+    .check-icon { @apply w-6 h-6 shrink-0 rounded-full bg-nuur-100 text-nuur-700 flex items-center justify-center text-xs; }
+    .ingredient { @apply bg-white p-6 rounded-2xl shadow-sm border border-nuur-100 text-center; }
+    .ingredient-icon { @apply w-12 h-12 rounded-full bg-nuur-100 flex items-center justify-center mx-auto text-xl mb-3; }
+    .step-num { @apply w-10 h-10 mx-auto rounded-full bg-nuur-700 text-white font-bold flex items-center justify-center; }
+
+    /* Formulaires & boutons */
+    .form-label { @apply block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1; }
+    .form-input { @apply w-full text-base sm:text-sm px-4 py-3 rounded-xl border border-gray-200 bg-gray-50/50 focus:outline-none focus:border-nuur-700 focus:bg-white transition-colors; }
+    .form-input.is-invalid { @apply border-red-400 bg-red-50; }
+    .btn-primary { @apply inline-flex items-center justify-center gap-2 bg-nuur-700 hover:bg-nuur-800 text-white font-bold px-6 py-3.5 rounded-xl transition-colors text-sm disabled:opacity-60; }
+
+    /* Boutique */
+    .product-grid { @apply grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 sm:gap-6; }
+    .product-card { @apply bg-white rounded-2xl sm:rounded-3xl p-2.5 sm:p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col; }
+    .cat-btn { @apply shrink-0 whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold transition-all bg-gray-100 text-gray-700 hover:bg-nuur-50 hover:text-nuur-700; }
+    .cat-btn.is-active { @apply bg-nuur-700 text-white shadow-sm hover:bg-nuur-700 hover:text-white; }
+    .size-chip { @apply text-[11px] sm:text-xs font-semibold px-2.5 py-1 rounded-lg border border-gray-200 text-gray-600 bg-white hover:border-nuur-700 transition-colors; }
+    .size-chip.is-active { @apply bg-nuur-700 border-nuur-700 text-white; }
+    .add-btn { @apply shrink-0 h-10 px-3 sm:px-4 rounded-xl bg-nuur-700 hover:bg-nuur-800 text-white font-bold text-xs flex items-center gap-2 transition-colors; }
+    .fav-btn { @apply absolute top-2 right-2 sm:top-3 sm:right-3 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 text-gray-500 hover:text-red-500 shadow flex items-center justify-center text-sm transition-colors; }
+    .fav-btn.is-fav, .fav-link.is-fav { @apply text-red-500; }
+    .fav-link { @apply text-sm font-semibold text-gray-500 hover:text-red-500 transition-colors; }
+    .img-tab { @apply text-[11px] font-semibold px-3 py-1.5 rounded-full bg-white/85 text-gray-700 shadow; }
+    .img-tab.is-active { @apply bg-nuur-700 text-white; }
+    .qty-stepper { @apply flex items-center border border-gray-200 rounded-xl bg-white text-sm font-bold; }
+    .qty-stepper button { @apply w-9 h-9 text-gray-600 hover:bg-gray-100 rounded-xl text-base; }
+    .qty-stepper span { @apply min-w-7 text-center; }
+    .qty-stepper-lg button { @apply w-11 h-12; }
+
+    /* Overlays */
+    .overlay { @apply fixed inset-0 bg-black/50 z-50 opacity-0 transition-opacity duration-300; }
+    .overlay.is-open { @apply opacity-100; }
+    .modal { @apply fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center sm:p-4; }
+    .modal-panel { @apply relative bg-white w-full rounded-t-3xl sm:rounded-3xl overflow-y-auto overscroll-contain max-h-[92vh] shadow-2xl; max-height: 92dvh; }
+    .toast { @apply fixed z-[70] left-4 right-4 sm:right-auto sm:left-8 bottom-24 sm:bottom-8 sm:max-w-md bg-gray-900 text-white text-sm rounded-2xl shadow-2xl px-4 py-3 flex items-center justify-between gap-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-300; }
+    .toast.is-visible { @apply opacity-100 translate-y-0; }
+    .toast-action { @apply text-nuur-200 font-bold whitespace-nowrap hover:underline; }
+    .toast.is-visible .toast-action { @apply pointer-events-auto; }
+
+    /* Compte */
+    .auth-tab { @apply py-2.5 rounded-lg text-gray-600 transition-colors; }
+    .auth-tab.is-active { @apply bg-white text-nuur-800 shadow-sm; }
+    .account-tab-btn { @apply w-full p-3 rounded-xl font-medium text-gray-700 hover:bg-white flex flex-col md:flex-row items-center justify-center md:justify-start gap-1.5 md:gap-3 transition-colors; }
+    .account-tab-btn.is-active { @apply bg-nuur-700 text-white font-bold hover:bg-nuur-700; }
+    .status-badge { @apply text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide; }
+    .status-select { @apply text-xs font-bold rounded-full pl-3 pr-8 py-1.5 border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-nuur-700; }
+}
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+.hero-gradient {
+    background: linear-gradient(180deg, rgba(15, 56, 34, 0.72) 0%, rgba(10, 38, 23, 0.9) 100%);
+}
+
+.wa-float {
+    right: 1rem;
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 640px) {
+    .wa-float { right: 1.5rem; bottom: 1.5rem; }
+}
+
+@keyframes subtle-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+.pulse-wa { animation: subtle-pulse 2.5s infinite ease-in-out; }
+
+@keyframes badge-bump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+.badge-bump { animation: badge-bump 0.4s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pulse-wa, .badge-bump, .animate-ping { animation: none; }
+    html { scroll-behavior: auto; }
+}
