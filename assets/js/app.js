@@ -1083,6 +1083,8 @@
             const content = $('#account-tab-' + state.accountTab);
             replayClass(content, 'fade-swap');
             armChildren($('[data-reveal-stagger]', content));
+            // Sur mobile le contenu est sous le profil : on y descend
+            if (window.innerWidth < 768) content.parentElement.scrollIntoView({ behavior: motionOK ? 'smooth' : 'auto', block: 'start' });
         }
 
         const adminFilter = e.target.closest('[data-admin-filter]');
