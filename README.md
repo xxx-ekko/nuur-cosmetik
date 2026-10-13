@@ -66,6 +66,27 @@ npm run clean:demo    # deletes the demo account and its orders (do this before 
 
 Orders are real database rows built from the current catalog and prices. Re-running `seed:demo` resets them.
 
+### Visitor statistics (Espace gérante → Statistiques)
+
+Run the second SQL file once, the same way as the first: `supabase/migrations/20261013000000_nuur_analytics.sql`.
+
+The site then records anonymous visits (random browser id, traffic source, device, pages, product views, cart, orders, sign-ups, WhatsApp clicks). Visitors can only send data, never read it. The dashboard shows:
+
+1. **Acquisition**: users, sessions, new visitors, sessions per day, traffic sources (social, organic search, email, direct, other sites), devices
+2. **Engagement**: average engaged time, pages per session, most viewed pages and products
+3. **Conversion**: conversion rate, orders, accounts created, WhatsApp clicks, purchase funnel
+4. **Retention & abandonment**: cart abandonment rate, returning visitors, exit rate per page
+
+The owner's own visits are not counted once she has logged in on a device.
+
+To recognize where visitors come from, add UTM tags to the links you share, e.g. TikTok bio:
+`https://xxx-ekko.github.io/nuur-cosmetik/?utm_source=tiktok&utm_medium=social` · newsletter: `?utm_source=newsletter&utm_medium=email`
+
+```bash
+npm run seed:analytics    # adds 60 days of simulated visits (flagged "démonstration" in the dashboard)
+npm run clean:analytics   # removes them; real visits are kept
+```
+
 ## 2. Publish on GitHub Pages
 
 ```bash
@@ -88,5 +109,5 @@ Optional full local backend (Docker + Supabase CLI): `supabase start` (this proj
 ## Before going live
 
 - The testimonials on the home page are sample texts: replace them with real customer reviews when you have them (they're plain HTML in `index.html`, section "Testimonials").
-- Run `npm run clean:demo` if you seeded the demo account.
+- Run `npm run clean:demo` and `npm run clean:analytics` if you seeded demo data.
 - Set the `og:image` meta tag in `index.html` to the full URL (e.g. `https://xxx-ekko.github.io/nuur-cosmetik/assets/img/brand/gamme.jpg`) so links shared on WhatsApp show the picture.

@@ -834,8 +834,8 @@
                 <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
                     <div>
                         <span class="eyebrow">Espace gérante</span>
-                        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-1">Commandes du site</h1>
-                        <p class="text-gray-600 text-sm mt-1">Mettez à jour le statut : vos clientes le voient dans leur compte.</p>
+                        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-gray-900 mt-1">Tableau de bord</h1>
+                        <p class="text-gray-600 text-sm mt-1">Commandes du site et statistiques de visite.</p>
                     </div>
                     <button type="button" data-action="admin-refresh" class="self-start sm:self-auto text-sm font-semibold text-nuur-700 bg-nuur-50 hover:bg-nuur-100 border border-nuur-100 px-4 py-2.5 rounded-xl">
                         <i class="fa-solid fa-rotate"></i> Actualiser
@@ -849,6 +849,12 @@
                 </div>
 
                 <div id="admin-panel" class="hidden space-y-6">
+                    <div class="flex gap-2" role="tablist" aria-label="Vue">
+                        <button type="button" data-admin-view="orders" class="cat-btn is-active" role="tab"><i class="fa-solid fa-box"></i> Commandes</button>
+                        <button type="button" data-admin-view="stats" class="cat-btn" role="tab"><i class="fa-solid fa-chart-column"></i> Statistiques</button>
+                    </div>
+
+                    <div id="admin-view-orders" class="space-y-6">
                     <div id="admin-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-3" data-reveal-stagger></div>
 
                     <div class="flex flex-col lg:flex-row gap-3 lg:items-center justify-between bg-gray-50 p-3 rounded-2xl border border-gray-100">
@@ -862,6 +868,16 @@
                     </div>
 
                     <div id="admin-orders" class="grid lg:grid-cols-2 gap-4" data-reveal-stagger></div>
+                    </div>
+
+                    <!-- Statistiques de visite -->
+                    <div id="admin-view-stats" class="hidden space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                            <div id="stats-periods" class="flex gap-2" role="group" aria-label="Période"></div>
+                            <p id="stats-note" class="text-xs text-gray-500"></p>
+                        </div>
+                        <div id="stats-content" class="space-y-6 relative"></div>
+                    </div>
                 </div>
             </div>
         </section>

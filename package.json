@@ -7,7 +7,9 @@
     "watch:css": "tailwindcss -i ./assets/css/input.css -o ./assets/css/style.css --watch",
     "seed:demo": "node scripts/nuur-admin.mjs seed-demo",
     "clean:demo": "node scripts/nuur-admin.mjs clean-demo",
-    "make-admin": "node scripts/nuur-admin.mjs make-admin"
+    "make-admin": "node scripts/nuur-admin.mjs make-admin",
+    "seed:analytics": "node scripts/nuur-admin.mjs seed-analytics",
+    "clean:analytics": "node scripts/nuur-admin.mjs clean-analytics"
   },
   "devDependencies": {
     "@supabase/supabase-js": "2.117.2",

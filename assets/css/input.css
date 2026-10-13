@@ -72,6 +72,21 @@
     .account-tab-btn.is-active { @apply bg-nuur-700 text-white font-bold hover:bg-nuur-700; }
     .status-badge { @apply text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide; }
     .status-select { @apply text-xs font-bold rounded-full pl-3 pr-8 py-1.5 border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-nuur-700; }
+
+    /* Statistiques (espace gérante) */
+    .stats-card { @apply bg-white rounded-3xl border border-gray-200 p-5 sm:p-7; }
+    .stat-tile { @apply bg-gray-50 border border-gray-100 rounded-2xl p-4 min-w-0; }
+    .stat-value { @apply font-sans font-semibold text-2xl sm:text-3xl text-gray-900 mt-1 leading-tight; }
+    /* Mobile : libellé + valeur sur une ligne, barre dessous. Dès sm : libellé | barre | valeur */
+    .bar-row { @apply grid grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[minmax(0,11rem)_1fr_auto] items-center gap-x-3 gap-y-1.5; }
+    .bar-label { @apply min-w-0 sm:col-start-1 sm:row-start-1; }
+    .bar-value { @apply text-sm text-gray-700 text-right tabular-nums whitespace-nowrap self-start sm:self-center sm:col-start-3 sm:row-start-1; }
+    .bar-track { @apply col-span-2 sm:col-span-1 sm:col-start-2 sm:row-start-1 h-3 rounded bg-nuur-100 overflow-hidden; }
+    .bar-fill { @apply h-full bg-nuur-700 rounded-r transition-[width] duration-700; }
+    .daily-col { @apply flex-1 h-full flex items-end justify-center px-px rounded-sm outline-none cursor-default hover:bg-nuur-50 focus-visible:bg-nuur-50 focus-visible:ring-2 focus-visible:ring-nuur-700; }
+    .daily-bar { @apply w-full max-w-[24px] bg-nuur-700 rounded-t; }
+    .daily-col:hover .daily-bar, .daily-col:focus-visible .daily-bar { @apply bg-nuur-900; }
+    .chart-tip { @apply absolute z-10 pointer-events-none bg-gray-900 text-white text-xs font-medium rounded-lg px-2.5 py-1.5 shadow-lg whitespace-nowrap; }
 }
 
 @layer utilities {

@@ -145,6 +145,115 @@
     }
 
     // ----------------------------------------------------------------------
+    // Statistiques de visite (anonymes, envoyées à Supabase)
+    // ----------------------------------------------------------------------
+    const analytics = (() => {
+        const noop = { track() {}, page() {}, flush() {}, optOut() {} };
+        if (!sb || !window.fetch) return noop;
+
+        const KEY_VISITOR = 'nuur.visitor.v1', KEY_SESSION = 'nuur.session.v1', KEY_OPTOUT = 'nuur.analytics.optout';
+        const SESSION_TIMEOUT = 30 * 60 * 1000, IDLE_AFTER = 60 * 1000, MAX_PAGE_MS = 30 * 60 * 1000;
+        const memory = {}; // si le stockage du navigateur est bloqué
+        const read = key => storage.get(key, null) ?? memory[key] ?? null;
+        const write = (key, value) => { memory[key] = value; storage.set(key, value); };
+        const uuid = () => crypto.randomUUID ? crypto.randomUUID()
+            : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+        const optedOut = () => read(KEY_OPTOUT) === true;
+
+        // Source de la visite, calculée une fois à l'arrivée sur le site
+        const attribution = (() => {
+            const params = new URLSearchParams(location.search);
+            const utm = k => (params.get('utm_' + k) || '').slice(0, 80).toLowerCase();
+            let host = '';
+            try { host = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch { /* referrer illisible */ }
+            if (host === location.hostname) host = '';
+            const tag = `${utm('source')} ${utm('medium')} ${host}`;
+            let source = 'direct';
+            if (/e-?mail|newsletter|mail\.|outlook|gmail/.test(tag)) source = 'email';
+            else if (/tiktok|instagram|facebook|fb\b|whatsapp|wa\.me|snapchat|twitter|t\.co\b|x\.com|linkedin|youtube|pinterest|social/.test(tag)) source = 'social';
+            else if (/google|bing|yahoo|duckduckgo|ecosia|qwant|baidu|yandex|brave|search|organic/.test(tag)) source = 'organique';
+            else if (host || utm('source')) source = 'referent';
+            return { source, referrer_host: host.slice(0, 120), utm_source: utm('source'), utm_medium: utm('medium'), utm_campaign: utm('campaign') };
+        })();
+        let attributionUsed = false;
+
+        const device = () => {
+            const w = Math.min(window.screen?.width || innerWidth, innerWidth);
+            return w < 640 ? 'mobile' : (w < 1024 && navigator.maxTouchPoints > 0 ? 'tablette' : 'ordinateur');
+        };
+
+        const post = (table, rows) => fetch(`${CFG.supabaseUrl}/rest/v1/${table}`, {
+            method: 'POST',
+            headers: { apikey: CFG.supabaseKey, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+            body: JSON.stringify(rows),
+            keepalive: true,
+        }).catch(() => { /* les statistiques ne doivent jamais gêner le site */ });
+
+        function session(landingPage) {
+            const now = Date.now();
+            let visitor = read(KEY_VISITOR), isNew = false;
+            if (!visitor) { visitor = uuid(); isNew = true; write(KEY_VISITOR, visitor); }
+            let s = read(KEY_SESSION);
+            if (!s || now - s.last > SESSION_TIMEOUT) {
+                s = { id: uuid(), last: now };
+                const a = attributionUsed ? { source: 'direct', referrer_host: '', utm_source: '', utm_medium: '', utm_campaign: '' } : attribution;
+                attributionUsed = true;
+                post('analytics_sessions', [{ id: s.id, visitor_id: visitor, is_new_visitor: isNew, ...a, landing_page: landingPage, device: device() }]);
+            }
+            s.last = now;
+            write(KEY_SESSION, s);
+            return { session_id: s.id, visitor_id: visitor };
+        }
+
+        let queue = [], flushTimer = null;
+        function flush() {
+            clearTimeout(flushTimer);
+            if (!queue.length) return;
+            const rows = queue;
+            queue = [];
+            post('analytics_events', rows);
+        }
+
+        function track(name, { page = active.page || currentPage(), value = 0, product = '' } = {}) {
+            if (optedOut() || page === 'admin') return;
+            queue.push({ ...session(page), name, page, value: Math.max(0, Math.min(Math.round(value), 100000000)), product_id: product });
+            clearTimeout(flushTimer);
+            flushTimer = setTimeout(flush, 4000);
+        }
+
+        // Temps d'engagement : seulement quand l'onglet est visible et que la personne interagit
+        const active = { page: null, since: 0, ms: 0, lastInput: Date.now() };
+        const pause = () => { if (active.since) { active.ms += Date.now() - active.since; active.since = 0; } };
+        const resume = () => { if (active.page && !active.since && document.visibilityState === 'visible') active.since = Date.now(); };
+        function sendEngagement() {
+            pause();
+            const ms = Math.min(active.ms, MAX_PAGE_MS);
+            active.ms = 0;
+            if (active.page && ms >= 1000) track('engagement', { page: active.page, value: ms });
+        }
+        function page(name) {
+            if (active.page) sendEngagement();
+            active.page = name === 'admin' ? null : name;
+            active.lastInput = Date.now();
+            resume();
+            if (active.page) track('page_view', { page: name });
+        }
+
+        ['pointerdown', 'keydown', 'scroll', 'touchstart', 'mousemove'].forEach(evt =>
+            window.addEventListener(evt, () => { active.lastInput = Date.now(); resume(); }, { passive: true }));
+        setInterval(() => { if (Date.now() - active.lastInput > IDLE_AFTER) pause(); }, 10000);
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') { sendEngagement(); flush(); } else resume();
+        });
+        window.addEventListener('pagehide', () => { sendEngagement(); flush(); });
+
+        // Les visites de la gérante ne sont pas comptées sur cet appareil
+        const optOut = () => { write(KEY_OPTOUT, true); queue = []; };
+
+        return { track, page, flush, optOut };
+    })();
+
+    // ----------------------------------------------------------------------
     // State
     // ----------------------------------------------------------------------
     const state = {
@@ -164,7 +273,8 @@
         orders: [],
         favorites: new Set(),
         // espace gérante
-        admin: { orders: [], filter: 'all', search: '', loading: false },
+        admin: { orders: [], filter: 'all', search: '', loading: false, view: 'orders' },
+        stats: { days: 30, data: {} },
     };
 
     // ----------------------------------------------------------------------
@@ -197,6 +307,7 @@
         saveCart();
         renderCart();
         bumpBadge();
+        analytics.track('add_to_cart', { product: id, value: product.variants[v].price * qty });
         if (!silent) {
             toast(`<strong>${esc(product.name)}</strong> (${esc(product.variants[v].size)}) ajouté au panier`,
                 { label: 'Voir le panier', action: 'open-cart' });
@@ -368,6 +479,8 @@
         // La requête d'enregistrement part avant l'ouverture de WhatsApp, dans le même clic
         // (sinon le navigateur bloquerait la nouvelle fenêtre).
         const saved = saveOrder(ref, c, lines);
+        analytics.track('purchase', { value: lines.reduce((sum, l) => sum + l.subtotal, 0) });
+        analytics.flush();
         const win = window.open(url, '_blank');
         if (!win) Promise.race([saved, new Promise(r => setTimeout(r, 2500))]).then(() => { location.href = url; });
 
@@ -475,6 +588,7 @@
     // ----------------------------------------------------------------------
     function openProduct(id) {
         if (!PRODUCT_BY_ID[id]) return;
+        analytics.track('view_product', { product: id });
         state.modal = { id, qty: 1, img: 'photo' };
         renderModal();
         openOverlay('product-modal');
@@ -585,6 +699,7 @@
         document.body.classList.add('overflow-hidden');
 
         if (name === 'cart') {
+            analytics.track('open_cart');
             $('#cart-overlay').classList.remove('hidden');
             const drawer = $('#cart-drawer');
             drawer.classList.remove('invisible');
@@ -662,6 +777,7 @@
     function route() {
         if (isAuthHash()) return; // lien reçu par email : traité par Supabase
         const page = currentPage();
+        analytics.page(page);
         $$('.page-section').forEach(s => s.classList.toggle('hidden', s.id !== 'page-' + page));
         $$('[data-nav]').forEach(a => {
             const on = a.dataset.nav === page;
@@ -724,6 +840,7 @@
         ]);
         if (state.user?.id !== uid) return;
         state.profile = profile.data || { full_name: '', phone: '', zone: '', address: '', is_admin: false };
+        if (state.profile.is_admin) analytics.optOut();
         state.orders = orders.data || [];
         state.favorites = new Set((favs.data || []).map(f => f.product_id));
         const p = state.profile;
@@ -743,6 +860,7 @@
             state.orders = [];
             state.favorites = new Set();
             state.admin.orders = [];
+            state.stats.data = {};
         } else {
             // Supabase peut émettre plusieurs événements d'affilée : tous attendent le même chargement
             if (changed) userDataLoading = loadUserData();
@@ -954,7 +1072,7 @@
         const stat = (label, value, cls) => `
             <div class="bg-white border border-gray-200 rounded-2xl p-4">
                 <p class="text-xs text-gray-500 font-semibold">${label}</p>
-                <p class="font-serif font-bold text-2xl mt-1 ${cls}" data-count="${value}">${formatNumber(value)}</p>
+                <p class="font-semibold text-2xl sm:text-3xl mt-1 ${cls}" data-count="${value}">${formatNumber(value)}</p>
             </div>`;
         $('#admin-stats').innerHTML =
             stat('À confirmer', count('envoyee'), 'text-amber-700') +
@@ -1018,6 +1136,224 @@
     }
 
     // ----------------------------------------------------------------------
+    // Espace gérante : statistiques de visite
+    // ----------------------------------------------------------------------
+    const PAGE_LABELS = { accueil: 'Accueil', boutique: 'Boutique', galerie: 'Galerie', apropos: 'À propos', contact: 'Contact', compte: 'Mon compte' };
+    const SOURCE_LABELS = [
+        ['social', 'Réseaux sociaux', 'TikTok, Instagram, WhatsApp…'],
+        ['organique', 'Recherche (organique)', 'Google, Bing…'],
+        ['email', 'Email', 'Newsletter, messagerie'],
+        ['direct', 'Direct', 'Adresse tapée, favori'],
+        ['referent', 'Autres sites', 'Liens depuis d’autres sites'],
+    ];
+    const DEVICE_LABELS = [['mobile', 'Mobile'], ['tablette', 'Tablette'], ['ordinateur', 'Ordinateur']];
+    const STATS_PERIODS = [[7, '7 jours'], [30, '30 jours'], [90, '90 jours']];
+
+    const ratio = (a, b) => (b ? a / b : 0);
+    const formatPct = x => `${(x * 100).toLocaleString('fr-FR', { maximumFractionDigits: x < 0.1 ? 1 : 0 })} %`;
+    const formatDecimal = x => x.toLocaleString('fr-FR', { maximumFractionDigits: 1 });
+    function formatDuration(ms) {
+        const total = Math.round(ms / 1000);
+        const m = Math.floor(total / 60), sec = total % 60;
+        return m ? `${m}\u00a0min\u00a0${String(sec).padStart(2, '0')}\u00a0s` : `${sec}\u00a0s`;
+    }
+
+    const statTile = (label, value, sub = '') => `
+        <div class="stat-tile">
+            <p class="text-xs text-gray-500 font-semibold">${label}</p>
+            <p class="stat-value">${value}</p>
+            ${sub ? `<p class="text-xs text-gray-500 mt-1">${sub}</p>` : ''}
+        </div>`;
+
+    // Barre horizontale : libellé · barre · valeur (la valeur est toujours écrite)
+    const barRow = (label, fraction, valueText, hint = '') => `
+        <div class="bar-row" data-tip="${esc(label)} : ${esc(valueText)}">
+            <div class="bar-label">
+                <p class="text-sm font-semibold text-gray-800 sm:truncate">${esc(label)}</p>
+                ${hint ? `<p class="text-[11px] text-gray-500 sm:truncate">${esc(hint)}</p>` : ''}
+            </div>
+            <p class="bar-value">${valueText}</p>
+            <div class="bar-track"><div class="bar-fill" style="width:${Math.max(0, Math.min(1, fraction)) * 100}%"></div></div>
+        </div>`;
+
+    const statsSection = (n, title, intro, body) => `
+        <section class="stats-card">
+            <div class="flex items-start gap-3 mb-5">
+                <span class="w-8 h-8 shrink-0 rounded-full bg-nuur-700 text-white text-sm font-bold flex items-center justify-center">${n}</span>
+                <div>
+                    <h2 class="font-serif text-xl sm:text-2xl font-bold text-gray-900">${title}</h2>
+                    <p class="text-xs text-gray-500 mt-0.5">${intro}</p>
+                </div>
+            </div>
+            ${body}
+        </section>`;
+
+    const subTitle = text => `<h3 class="text-sm font-bold text-gray-900 mb-3">${text}</h3>`;
+
+    function dailyChart(daily) {
+        const max = Math.max(1, ...daily.map(d => d.sessions));
+        const label = iso => new Date(iso + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+        const mid = Math.floor((daily.length - 1) / 2);
+        return `
+            <div class="relative">
+                <div class="flex items-center gap-2 mb-1 text-[11px] text-gray-500 tabular-nums"><span>${formatNumber(max)}</span><span class="flex-1 border-t border-gray-100"></span></div>
+                <div class="flex items-end h-40 border-b border-gray-200" role="img" aria-label="Sessions par jour">
+                    ${daily.map(d => `
+                        <div class="daily-col" tabindex="0" data-tip="${label(d.day)} : ${plural(d.sessions, 'session')} · ${plural(d.users, 'utilisateur')}">
+                            <div class="daily-bar" style="height:${(d.sessions / max) * 100}%"></div>
+                        </div>`).join('')}
+                </div>
+                <div class="flex justify-between mt-1.5 text-[11px] text-gray-500">
+                    <span>${label(daily[0].day)}</span><span>${label(daily[mid].day)}</span><span>${label(daily[daily.length - 1].day)}</span>
+                </div>
+            </div>
+            <details class="mt-3 text-xs">
+                <summary class="cursor-pointer text-nuur-700 font-semibold">Voir les données jour par jour</summary>
+                <div class="max-h-56 overflow-y-auto mt-2 border border-gray-100 rounded-xl">
+                    <table class="w-full text-left tabular-nums">
+                        <thead class="bg-gray-50 text-gray-500"><tr><th class="px-3 py-2 font-semibold">Jour</th><th class="px-3 py-2 font-semibold text-right">Sessions</th><th class="px-3 py-2 font-semibold text-right">Utilisateurs</th></tr></thead>
+                        <tbody>${[...daily].reverse().map(d => `<tr class="border-t border-gray-100"><td class="px-3 py-1.5">${label(d.day)}</td><td class="px-3 py-1.5 text-right">${d.sessions}</td><td class="px-3 py-1.5 text-right">${d.users}</td></tr>`).join('')}</tbody>
+                    </table>
+                </div>
+            </details>`;
+    }
+
+    function renderStats() {
+        $('#stats-periods').innerHTML = STATS_PERIODS.map(([d, label]) =>
+            `<button type="button" data-stats-days="${d}" class="cat-btn !px-4 !py-2 ${state.stats.days === d ? 'is-active' : ''}">${label}</button>`).join('');
+
+        const d = state.stats.data[state.stats.days];
+        const box = $('#stats-content');
+        if (!d) {
+            box.innerHTML = '<p class="text-center text-gray-400 py-16"><i class="fa-solid fa-spinner fa-spin text-2xl"></i></p>';
+            return;
+        }
+        $('#stats-note').innerHTML = d.demo_sessions
+            ? `<i class="fa-solid fa-flask"></i> Inclut ${plural(d.demo_sessions, 'session')} de démonstration`
+            : 'Statistiques anonymes · vos propres visites ne sont pas comptées';
+
+        if (!d.sessions) {
+            box.innerHTML = `<div class="stats-card text-center text-gray-500 py-14"><i class="fa-solid fa-chart-column text-3xl text-gray-300"></i><p class="mt-3 text-sm">Pas encore de visites sur cette période.</p></div>`;
+            return;
+        }
+
+        const sessions = d.sessions;
+        const maxSource = Math.max(1, ...SOURCE_LABELS.map(([k]) => d.sources[k]?.sessions || 0));
+        const maxDevice = Math.max(1, ...DEVICE_LABELS.map(([k]) => d.devices[k] || 0));
+        const maxViews = Math.max(1, ...d.pages.map(p => p.views));
+        const maxProductViews = Math.max(1, ...d.products.map(p => p.views));
+        const conv = d.conversions;
+        const f = d.funnel;
+
+        const acquisition = statsSection(1, 'Acquisition', 'D’où viennent vos visiteurs et combien ils sont.', `
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                ${statTile('Utilisateurs', formatNumber(d.users), 'visiteurs uniques')}
+                ${statTile('Sessions', formatNumber(sessions), 'visites')}
+                ${statTile('Nouveaux visiteurs', formatNumber(d.new_users), formatPct(ratio(d.new_users, d.users)) + ' des utilisateurs')}
+                ${statTile('Sessions par utilisateur', formatDecimal(ratio(sessions, d.users)))}
+            </div>
+            ${subTitle('Sessions par jour')}
+            ${dailyChart(d.daily)}
+            <div class="grid lg:grid-cols-2 gap-6 mt-6">
+                <div>
+                    ${subTitle('Sources de trafic')}
+                    <div class="space-y-3">${SOURCE_LABELS.map(([k, label, hint]) => {
+                        const n = d.sources[k]?.sessions || 0;
+                        return barRow(label, n / maxSource, `${formatNumber(n)} · ${formatPct(ratio(n, sessions))}`, hint);
+                    }).join('')}</div>
+                    ${d.referrers.length ? `<p class="text-[11px] text-gray-500 mt-3">Principales origines : ${d.referrers.map(r => `${esc(r.host)} (${r.sessions})`).join(', ')}</p>` : ''}
+                </div>
+                <div>
+                    ${subTitle('Appareils')}
+                    <div class="space-y-3">${DEVICE_LABELS.map(([k, label]) => {
+                        const n = d.devices[k] || 0;
+                        return barRow(label, n / maxDevice, `${formatNumber(n)} · ${formatPct(ratio(n, sessions))}`);
+                    }).join('')}</div>
+                </div>
+            </div>`);
+
+        const engagement = statsSection(2, 'Engagement', 'Ce que les visiteurs regardent, et combien de temps.', `
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+                ${statTile('Durée moyenne d’engagement', formatDuration(ratio(d.engagement_ms, sessions)), 'temps actif par session')}
+                ${statTile('Pages par session', formatDecimal(ratio(d.page_views, sessions)))}
+                ${statTile('Pages vues', formatNumber(d.page_views))}
+            </div>
+            <div class="grid lg:grid-cols-2 gap-6">
+                <div>
+                    ${subTitle('Pages les plus vues')}
+                    <div class="space-y-3">${d.pages.map(p => barRow(PAGE_LABELS[p.page] || p.page, p.views / maxViews,
+                        `${formatNumber(p.views)} vues`, `Engagement moyen : ${formatDuration(ratio(p.engagement_ms, p.views))}`)).join('')}</div>
+                </div>
+                <div>
+                    ${subTitle('Produits les plus consultés')}
+                    <div class="space-y-3">${d.products.length ? d.products.map(p => barRow(PRODUCT_BY_ID[p.id]?.name || p.id, p.views / maxProductViews,
+                        `${formatNumber(p.views)} vues`, `${plural(p.adds, 'ajout')} au panier`)).join('') : '<p class="text-xs text-gray-400">Aucune fiche produit ouverte.</p>'}</div>
+                </div>
+            </div>`);
+
+        const conversion = statsSection(3, 'Conversion', 'Les actions qui comptent, et la part des sessions qui les réalisent.', `
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+                ${statTile('Taux de conversion', formatPct(ratio(conv.purchase.sessions, sessions)), 'sessions avec une commande')}
+                ${statTile('Commandes', formatNumber(conv.purchase.events), `${formatNumber(d.revenue)} FCFA au total`)}
+                ${statTile('Comptes créés', formatNumber(conv.sign_up.events), formatPct(ratio(conv.sign_up.sessions, sessions)) + ' des sessions')}
+                ${statTile('Clics WhatsApp', formatNumber(conv.whatsapp_click.events), formatPct(ratio(conv.whatsapp_click.sessions, sessions)) + ' des sessions')}
+            </div>
+            ${subTitle('Parcours d’achat')}
+            <div class="space-y-3">
+                ${[['Visites', f.sessions], ['Fiche produit consultée', f.viewed_product], ['Ajout au panier', f.added], ['Panier ouvert', f.opened_cart], ['Commande envoyée', f.purchased]]
+                    .map(([label, n]) => barRow(label, ratio(n, sessions), `${formatNumber(n)} · ${formatPct(ratio(n, sessions))}`)).join('')}
+            </div>`);
+
+        const retention = statsSection(4, 'Rétention et abandon', 'Où les visiteurs partent, et les paniers non commandés.', `
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                ${statTile('Taux d’abandon de panier', formatPct(ratio(d.cart.abandoned, d.cart.with_cart)), `${d.cart.abandoned} sur ${plural(d.cart.with_cart, 'panier')} non commandés`)}
+                ${statTile('Visiteurs récurrents', formatPct(ratio(d.returning_users, d.users)), `${formatNumber(d.returning_users)} reviennent sur le site`)}
+            </div>
+            ${subTitle('Taux de sortie par page')}
+            <p class="text-[11px] text-gray-500 -mt-2 mb-3">Part des vues d’une page qui ont été la dernière de la visite.</p>
+            <div class="space-y-3">${[...d.pages].sort((a, b) => ratio(b.exits, b.views) - ratio(a.exits, a.views)).map(p =>
+                barRow(PAGE_LABELS[p.page] || p.page, ratio(p.exits, p.views), formatPct(ratio(p.exits, p.views)), `${formatNumber(p.exits)} sorties sur ${formatNumber(p.views)} vues`)).join('')}</div>`);
+
+        box.innerHTML = acquisition + engagement + conversion + retention + '<div id="stats-tip" class="chart-tip hidden" role="tooltip"></div>';
+        armChildren(box);
+    }
+
+    async function loadStats({ force = false } = {}) {
+        if (!sb || !state.profile?.is_admin) return;
+        const days = state.stats.days;
+        if (state.stats.data[days] && !force) return renderStats();
+        renderStats();
+        const { data, error } = await sb.rpc('admin_analytics', { p_days: days });
+        if (error) {
+            $('#stats-content').innerHTML = '<p class="text-center text-sm text-red-600 py-10">Impossible de charger les statistiques. Le fichier SQL des statistiques est-il installé dans Supabase ?</p>';
+            return;
+        }
+        state.stats.data[days] = data;
+        if (state.stats.days === days && state.admin.view === 'stats') renderStats();
+    }
+
+    function setAdminView(view) {
+        state.admin.view = view;
+        $$('[data-admin-view]').forEach(b => b.classList.toggle('is-active', b.dataset.adminView === view));
+        $('#admin-view-orders').classList.toggle('hidden', view !== 'orders');
+        $('#admin-view-stats').classList.toggle('hidden', view !== 'stats');
+        if (view === 'stats') loadStats();
+    }
+
+    // Infobulle des graphiques (souris et clavier)
+    function showChartTip(target) {
+        const tip = $('#stats-tip');
+        if (!tip) return;
+        if (!target) return tip.classList.add('hidden');
+        const box = $('#stats-content').getBoundingClientRect(), r = target.getBoundingClientRect();
+        tip.textContent = target.dataset.tip;
+        tip.classList.remove('hidden');
+        const left = Math.min(Math.max(r.left + r.width / 2 - box.left - tip.offsetWidth / 2, 0), box.width - tip.offsetWidth);
+        tip.style.left = `${left}px`;
+        tip.style.top = `${r.top - box.top - tip.offsetHeight - 8}px`;
+    }
+
+    // ----------------------------------------------------------------------
     // Events
     // ----------------------------------------------------------------------
     const actions = {
@@ -1061,10 +1397,12 @@
         'logout': async () => { await sb?.auth.signOut(); state.authView = 'login'; toast('Vous êtes déconnecté(e).'); },
         'go-account': () => { location.hash = 'compte'; },
         'reorder': el => reorder(el.dataset.ref),
-        'admin-refresh': () => loadAdmin(),
+        'admin-refresh': () => { state.admin.view === 'stats' ? loadStats({ force: true }) : loadAdmin(); },
     };
 
     document.addEventListener('click', e => {
+        if (e.target.closest('a[href*="wa.me/"]')) analytics.track('whatsapp_click');
+
         const catLink = e.target.closest('[data-category]');
         if (catLink) setCategory(catLink.dataset.category);
 
@@ -1087,12 +1425,23 @@
             if (window.innerWidth < 768) content.parentElement.scrollIntoView({ behavior: motionOK ? 'smooth' : 'auto', block: 'start' });
         }
 
+        const adminView = e.target.closest('[data-admin-view]');
+        if (adminView) setAdminView(adminView.dataset.adminView);
+
+        const statsDays = e.target.closest('[data-stats-days]');
+        if (statsDays) { state.stats.days = Number(statsDays.dataset.statsDays); loadStats(); }
+
         const adminFilter = e.target.closest('[data-admin-filter]');
         if (adminFilter) { state.admin.filter = adminFilter.dataset.adminFilter; renderAdmin(); armChildren($('#admin-orders')); }
 
         const el = e.target.closest('[data-action]');
         if (el && actions[el.dataset.action]) actions[el.dataset.action](el);
     });
+
+    $('#stats-content').addEventListener('pointerover', e => showChartTip(e.target.closest('[data-tip]')));
+    $('#stats-content').addEventListener('pointerleave', () => showChartTip(null));
+    $('#stats-content').addEventListener('focusin', e => showChartTip(e.target.closest('[data-tip]')));
+    $('#stats-content').addEventListener('focusout', () => showChartTip(null));
 
     // Cliquer à côté de la photo ferme la lightbox
     $('#lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') closeOverlay('lightbox'); });
@@ -1136,6 +1485,7 @@
         const name = $('#contact-name'), msg = $('#contact-message');
         [name, msg].forEach(el => el.classList.toggle('is-invalid', !el.value.trim()));
         if (!name.value.trim() || !msg.value.trim()) return (name.value.trim() ? msg : name).focus();
+        analytics.track('whatsapp_click');
         const text = `Bonjour Nuur Cosmetik,\n\n*Nom :* ${name.value.trim()}\n*Sujet :* ${$('#contact-subject').value}\n*Message :* ${msg.value.trim()}`;
         if (!window.open(waUrl(text), '_blank')) location.href = waUrl(text);
     });
@@ -1151,6 +1501,7 @@
         withBusy(e.target, async () => {
             const { error } = await sb.auth.signInWithPassword({ email, password });
             if (error) return authMessage(authError(error));
+            analytics.track('login');
             $('#login-password').value = '';
             authMessage('');
         });
@@ -1168,6 +1519,7 @@
                 return authMessage(AUTH_ERRORS['User already registered']);
             }
             $('#signup-password').value = '';
+            analytics.track('sign_up');
             if (!data.session) {
                 state.authView = 'login';
                 renderAccount();
